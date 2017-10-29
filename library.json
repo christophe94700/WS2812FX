@@ -15,7 +15,7 @@
   "platforms": "espressif8266",
   "repository": {
     "type": "git",
-    "url": "https://github.com/christophe94700/WS2812FX.git"
+    "url": "https://github.com/christophe94700/WS2812FX"
   },
   "dependencies": [
     {
