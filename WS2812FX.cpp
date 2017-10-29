@@ -49,9 +49,15 @@
   2017-02-02   removed "blackout" on mode, speed or color-change
 
 */
+/*
+  Traduction en français
+  Christophe Caron 2017-10-29
+  christophe@caron.tv
+  www.caron.ws
+*/
 
 #include "Arduino.h"
-#include "WS2812FX.h"
+#include "WS2812FX_fr.h"
 
 #define CALL_MODE(n) (this->*_mode[n])();
 
