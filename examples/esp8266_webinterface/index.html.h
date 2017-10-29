@@ -1,4 +1,4 @@
-const char index_html[] PROGMEM = R"=====(
+const PROGMEM char* const index_html = R"=====(
 <!DOCTYPE html>
 <html lang='en'>
 <head>
