@@ -1,4 +1,4 @@
-#include <WS2812FX.h>
+#include <WS2812FX_fr.h>
 
 #define LED_COUNT 150
 #define LED_PIN 13
