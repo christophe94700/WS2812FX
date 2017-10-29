@@ -40,7 +40,7 @@
 */
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <WS2812FX.h>
+#include <WS2812FX_fr.h>
 
 #include "index.html.h"
 #include "main.js.h"
