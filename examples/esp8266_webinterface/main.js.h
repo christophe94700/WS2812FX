@@ -1,4 +1,4 @@
-const char main_js[] PROGMEM = R"=====(
+const PROGMEM char* const main_js = R"=====(
 window.addEventListener('load', setup);
 window.addEventListener('resize', drawColorbar);
 
