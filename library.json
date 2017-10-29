@@ -3,7 +3,7 @@
   "description": "WS2812 FX Library for Arduino and ESP8266 in French",
   "keywords": "ws2812, esp8266",
   "authors": {
-    "name": "Harm Aldick",
+    "name": "Harm Aldick","Christophe Caron",
     "url": "https://github.com/christophe94700/WS2812FX"
   },
   "version": "1.0.0",
