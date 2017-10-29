@@ -4,10 +4,10 @@
   "keywords": "ws2812, esp8266",
   "authors": {
     "name": "Harm Aldick and Fork Christophe Caron",
-    "url": "https://github.com/christophe94700/WS2812FX_fr"
+    "url": "https://github.com/christophe94700/WS2812FX-fr"
   },
   "version": "1.0.0",
-  "downloadUrl": "https://github.com/christophe94700/WS2812FX_fr/archive/master.zip",
+  "downloadUrl": "https://github.com/christophe94700/WS2812FX-fr/archive/master.zip",
   "export": {
     "include": "WS2812FX_fr"
   },
@@ -15,7 +15,7 @@
   "platforms": "espressif8266",
   "repository": {
     "type": "git",
-    "url": "https://github.com/christophe94700/WS2812FX_fr.git"
+    "url": "https://github.com/christophe94700/WS2812FX-fr.git"
   },
   "dependencies": [
     {
@@ -24,4 +24,3 @@
     }
   ]
 }
-
