@@ -66,9 +66,9 @@
 #define BRIGHTNESS_STEP 15              // in/decrease brightness by this amount per click
 #define SPEED_STEP 10                   // in/decrease brightness by this amount per click
 
-#define ADRESS_LED 0                    // Adresse de départ paramètres LED (Fin ADRESS_LED + 7 mots)
-#define ADRESS_WIFI 7                   // Adresse de départ paramètres WIFI Mot de passe et SSID (Fin ADRESS_WIFI + 96 mots)
-#define ADRESS_RESEAU 96                // Adresse de départ paramètres WIFI Mot de passe et SSID (Fin ADRESS_WIFI + 5 mots)
+#define ADRESS_LED 0                    // Adresse de départ paramètres LED (Fin ADRESS_LED + 7 mots)0-6
+#define ADRESS_WIFI 7                   // Adresse de départ paramètres WIFI Mot de passe et SSID (Fin ADRESS_WIFI + 96 mots)7-102
+#define ADRESS_RESEAU 103               // Adresse de départ paramètres Reseau DHCP=0 Fixe=1, IP passerelle,Fin IP statique (Fin ADRESS_RESEAU + 6 mots)103-108
 
 unsigned long last_wifi_check_time = 0;
 String modes = "";
