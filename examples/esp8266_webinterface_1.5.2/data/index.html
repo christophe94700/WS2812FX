@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <meta name='viewport' content='width=device-width' />
+
+  <title>WS2812FX FR Ctrl</title>
+
+  <script type='text/javascript' src='main.js'></script>
+  <script type="text/javascript" src="jscolor.js"></script>
+
+  <style>
+  * {
+    font-family:sans-serif;
+    margin:0;
+    padding:0;
+  }
+
+  body {
+    max-width:675px;
+    min-width:250px;
+    background-color:#202020;
+    margin-left: 10%;
+    margin-right:10%;
+  }
+  
+  h1 {
+    color:#454545;
+    text-align:center;
+  }
+   #lum {
+    color:#454545;
+	font-weight:bold;
+	text-align:center;
+	border:2px solid #454545;
+    border-radius:5px;
+	 height: 50px;
+	width: 240px;
+	margin: auto;
+    padding:5px 5px;
+  }
+  
+  #controls {
+    text-align:center;
+    width:100%;
+    display:inline-block;
+  }
+
+  ul {
+    text-align:center;
+  }
+
+  ul#mode li {
+    display:block;
+  }
+
+  ul#brightness li, ul#speed li {
+    display:inline-block;
+    width:30%;
+  }
+   ul#power li {
+    display:inline-block;
+    width:30%;
+  }
+
+  ul li a {
+    display:block;
+    margin:3px;
+    padding:10px 5px;
+    border:2px solid #454545;
+    border-radius:5px;
+    color:#454545;
+    font-weight:bold;
+    text-decoration:none;
+  }
+
+  ul li a.active {
+    border:2px solid #909090;
+    color:#909090;
+  }
+
+  .dropbtn {
+   display:block;
+    margin:3px;
+    padding: 16px;
+    font-size: 16px;
+    border:2px solid #ffffff;
+   background-color:#202020;
+    font-weight:bold;
+    text-decoration:none;
+    cursor: pointer;
+    min-width: 240px;
+    color:#454545;
+    border-radius:5px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color:#202020;
+    color:#454545;
+    max-height:400px;
+    overflow-y: scroll;
+
+}
+
+.dropdown-content a {
+    display:block;
+    margin:3px;
+    padding:10px;
+    border:2px solid #454545;
+    border-radius:5px;
+    color:#454545;
+    font-weight:bold;
+    text-decoration:none;
+    cursor: pointer;
+    min-width: 218px;
+
+}
+
+.dropdown-content a:hover {background-color: #909090}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.button {
+    background-color: #00ff00; /* Vert */
+    border:2px solid #454545;
+    border-radius:5px;
+    color: white;
+    padding: 10px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	font-weight:bold;
+}
+
+.button2 {background-color: #0000ff;} /* Bleu */
+.button3 {background-color: #ff0000;} /* Rouge */ 
+.button4 {background-color: #ff00ff;} /* Fuchsia */ 
+.button5 {background-color: #9900ff;} /* Violet */ 
+.button6 {background-color: #FF9E25;} /* Blanc chaud */
+  </style>
+</head>
+<body>
+  <h1>WS2812FX FR Contrôle</h1>
+  <input type="hidden" id="ValeurCol" onchange=change(value)  value="Exemple"  /><br />
+  
+  <div id='controls'>
+   <ul id='power'>
+      <li><a href='#' class='p' id='a'>Arrêt</a></li>
+      <li><a href='#' class='p' id='m'>Marche</a></li>
+    </ul>
+    <br />
+	<div id="lum">Vitesse:<br />
+	<input type="range" value="125" max="255" min="1" step="1" onchange="submitVal('s',(this.value))"></div>
+	<br />
+	<div id="lum">Luminosité:<br />
+	<input type="range" value="125" max="255" min="1" step="1" onchange="submitVal('b',(this.value))"></div>
+	<br />
+	<input type="button" class="button" value="Vert" onclick="submitVal('c','00ff00')"></button>
+	<input type="button" class="button button2" value="Bleu" onclick="submitVal('c','0000ff')"></button>
+	<input type="button" class="button button3" value="Rouge" onclick="submitVal('c','ff0000')"></button>
+	<input type="button" class="button button4" value="Fuchsia" onclick="submitVal('c','ff00ff')"></button>
+	<input type="button" class="button button5" value="Violet" onclick="submitVal('c','9900ff')"></button>
+	<input type="button" class="button button6" value="Blanc" onclick="submitVal('c','FF9E25')"></button>
+	<br />
+	<br />
+    <input type="button"
+    class="jscolor {onFineChange:'update(this)', valueElement:null,value:'66ccff'}"
+    id="bouton"
+    value="Choix de la couleur"
+    onclick="mouseUp()"
+    style="width:240px; height:54px;"><br /><br />
+
+    <div class="dropdown">
+    <button class="dropbtn">Mode du bandeau</button>
+      <div class="dropdown-content"> 
+      <ul id='mode'></ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
