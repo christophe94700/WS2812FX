@@ -480,6 +480,7 @@ void srv_handle_set() {
     if(server.argName(i) == "ta") {                      // Valeur de la minuterie pour arrêt en minutes
       MinuteurStop=(int)strtol(&server.arg(i)[0], NULL, 10);
       EEPROMWritelong(ADRESS_MINUTEUR,MinuteurStop,2);  // Sauvegarde valeur minuteur
+      EEPROM.commit();
     }
     if(server.argName(i) == "vta") {                      // Affichage valeur de la minuterie
        server.send(200, "text/plain", String(MinuteurStop));
