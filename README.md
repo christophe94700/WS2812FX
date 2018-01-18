@@ -1,5 +1,9 @@
 ![WS2812FX library](https://raw.githubusercontent.com/kitesurfer1404/WS2812FX/master/WS2812FX_logo.png)
 
+Version en français- French Version
+
+Ajout d'exemple avec configuration depuis la liaison série et modification du client web. Plus d'information sur mon site www.caron.ws rubrique ESP8266. Ci dessous readme en VO.
+
 WS2812FX - More Blinken for your LEDs!
 ======================================
 
