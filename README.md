@@ -2,6 +2,7 @@
 
 Version en français- French Version
 
+Reprise en cours de l'ensemble des exmples.
 Ajout d'exemple avec configuration depuis la liaison série et modification du client web. Plus d'information sur mon site www.caron.ws rubrique ESP8266. Ci dessous readme en VO.
 
 WS2812FX - More Blinken for your LEDs!
