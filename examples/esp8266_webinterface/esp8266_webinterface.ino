@@ -52,6 +52,7 @@ extern const char main_js[];
 //#define STATIC_IP                       // uncomment for static IP, set IP below
 #ifdef STATIC_IP
   IPAddress ip(192,168,0,123);
+  IPAddress dns(192,168,0,1);
   IPAddress gateway(192,168,0,1);
   IPAddress subnet(255,255,255,0);
 #endif
@@ -159,7 +160,7 @@ void wifi_setup() {
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   WiFi.mode(WIFI_STA);
   #ifdef STATIC_IP  
-    WiFi.config(ip, gateway, subnet);
+    WiFi.config(ip, dns, gateway, subnet);
   #endif
 
   unsigned long connect_start = millis();
