@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <meta name='viewport' content='width=device-width' />
+
+  <title>WS2812FX FR Ctrl</title>
+
+  <script type='text/javascript' src='main.js'></script>
+  <script type="text/javascript" src="jscolor.js"></script>
+  <link href="style.css" rel="stylesheet" media="all" type="text/css"> 
+</head>
+<body>
+  <h1>WS2812FX FR Contrôle</h1>
+  <h2 id="dateheure"></h2><br />
+   <h2 id="minuterie"> </h2>
+  <div id='controls'>
+   <ul id='power'>
+	  <li id='a' onclick="submitVal('p','a')">Arrêt</li>
+      <li id='m' onclick="submitVal('p','m')">Marche</li>
+    </ul>
+    <br />
+	<div id="lum">Vitesse:<br />
+    <input type="radio" name="Maxvaleur" onclick="vitesse.max=3000">Max 3000
+    <input type="radio" name="Maxvaleur" checked onclick="vitesse.max=65000"> Max 65000
+   <br>
+	<input type="range" id="vitesse"value="1000" max="65000" min="10" step="1" onchange="submitVal('s',(this.value))"></div>
+	<br />
+	<div id="lum">Luminosité:<br />
+	<input type="range" value="125" max="255" min="1" step="1" onchange="submitVal('b',(this.value))"></div>
+	<br />
+	<input type="button" class="button" value="Vert" onclick="submitVal('c','00ff00')"></button>
+	<input type="button" class="button button2" value="Bleu" onclick="submitVal('c','0000ff')"></button>
+	<input type="button" class="button button3" value="Rouge" onclick="submitVal('c','ff0000')"></button>
+	<input type="button" class="button button4" value="Fuchsia" onclick="submitVal('c','ff00ff')"></button>
+	<input type="button" class="button button5" value="Violet" onclick="submitVal('c','9900ff')"></button>
+	<input type="button" class="button button6" value="Blanc" onclick="submitVal('c','FF9E25')"></button>
+	<br />
+	<br />
+	<a href="/config.html" id="config">Configuration</a>
+	</div>
+</body>
+</html>
