@@ -225,7 +225,7 @@ void wifi_setup() {
       IPAddress ip(EEPROM.read(ADRESS_RESEAU+1),EEPROM.read(ADRESS_RESEAU+2),EEPROM.read(ADRESS_RESEAU+3),EEPROM.read(ADRESS_RESEAU+5));
       IPAddress gateway(EEPROM.read(ADRESS_RESEAU+1),EEPROM.read(ADRESS_RESEAU+2),EEPROM.read(ADRESS_RESEAU+3),EEPROM.read(ADRESS_RESEAU+4));
       IPAddress subnet(255,255,255,0);
-      WiFi.config(ip, gateway,gateway, subnet); //WiFi.config(ip, dns, gateway, subnet) dns=gateway 
+      WiFi.config(ip, gateway, subnet, gateway); //WiFi.config(ip, gateway, subnet, dns) dns=gateway 
       }
   WiFi.begin(WIFI_SSID.c_str(), WIFI_PASSWORD.c_str());
   
