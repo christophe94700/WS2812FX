@@ -1,0 +1,13 @@
+td {padding:10px 15px;border:2px solid #000;margin: auto;}
+#alarme.selected {color:#fff;background:#006600 !important;}
+tr:hover {background:#eee;}
+
+table {
+    color:#454545;
+	font-weight:bold;
+	text-align:center;
+	border:2px solid #454545;
+	margin: auto;
+    padding:1px 1px;
+  }
+input { margin: auto; padding: 1px;width:40% }
