@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <meta name='viewport' content='width=device-width' />
+  <title>WS2812FX FR Ctrl Paramètres</title>
+  <script type='text/javascript' src='main.js' defer></script>
+  <link href="style.css" rel="stylesheet" media="all" type="text/css"> 
+  <link href="alarme.css" rel="stylesheet" media="all" type="text/css"> 
+</head>
+<body>
+  <h1>WS2812FX FR Paramètrage</h1>
+  <h2 id="dateheure"></h2><br />
+  <div id='controls'>
+  <table id="table">
+  <tr>
+  <td><h2>Valeur du Timer d'arrêt </td>
+  <td><input type="number" id="timer" name="ValTimer" min="0" max="600" step="1" value="0" onchange="submitVal('ta',(this.value))"> minutes</h2></td>
+  </tr>
+  <tr>
+  <td><h2>WIFI SSID </td>
+  <td><input type="Text" value="SSID" style="text-align:center" onchange="submitVal('ssid',(this.value)) " title="Nom du point d'accès"></h2></td>
+  </tr>
+  <tr>
+  <td><h2>WIFI Mot de passe </td>
+  <td><input type="password" value="" style="text-align:center" onchange="submitVal('password',(this.value))" title="Mot de passe"></h2></td>
+  </tr>
+  <tr>
+  <td><h2>IP FIXE ou DHCP=0 </td>
+  <td><input type="text" value="" style="text-align:center" onchange="submitVal('ipfixe',(this.value))" title="Exemple IP Fixe= 192.168.1.22 ou DHCP=0"></h2></td>
+  </tr>
+  <tr>
+  <td><h2>IP Passerelle </td>
+  <td><input type="text" value="" style="text-align:center" onchange="submitVal('ippasse',(this.value))" title="Exemple 192.168.1.1"></h2></td>
+  </tr>
+  <tr>
+  <td><h2>Nombres de LED </td>
+  <td><input type="number" value="" style="text-align:center" onchange="submitVal('nbled',(this.value))" title="Nombres de LED"></h2></td>
+  </tr>
+  </table>
+  <br>
+  <input type="button"
+    value="Réinitialiser"
+    onclick="submitVal('raz','1')"
+    style="width:240px; height:40px;"><br /><br />
+  <br />
+  <a href='index.html' id="config">Sortir</a>
+  </div>
+</body>
+</html>

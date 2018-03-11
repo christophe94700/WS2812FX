@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <meta name='viewport' content='width=device-width' />
+  <title>WS2812FX FR Ctrl Config</title>
+  <script type='text/javascript' src='config.js' defer></script>
+  <script type='text/javascript' src='main.js' defer></script>
+  <script type="text/javascript" src="jscolor.js" defer></script>
+  <link href="style.css" rel="stylesheet" media="all" type="text/css"> 
+</head>
+<body>
+  <h1>WS2812FX FR Configuration</h1>
+  <input type="hidden" id="ValeurCol" onchange=change(value)  value="Exemple"  /><br />
+  <h2 id="dateheure"></h2><br />
+  <div id='controls'>
+    <input type="button"
+    class="jscolor {onFineChange:'update(this)', valueElement:null,value:'66ccff'}"
+    id="bouton"
+    value="Choix de la couleur"
+    onclick="mouseUp()"
+    style="width:240px; height:54px;"><br /><br />
+    <div class="dropdown">
+    <button class="dropbtn">Mode du bandeau</button>
+      <div class="dropdown-content"> 
+      <ul id='mode'></ul>
+      </div>
+    </div>
+  <br>
+  <br>
+  <br />
+  <a href="alarme.html" id="config">Alarmes</a>  <br>
+  <a href="parametres.html" id="config">Paramètrages</a>  <br>
+  <a href='index.html' id="config">Sortir</a>
+  </div>
+</body>
+</html>

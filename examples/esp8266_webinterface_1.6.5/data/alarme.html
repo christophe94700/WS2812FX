@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <meta name='viewport' content='width=device-width' />
+  <title>WS2812FX FR Alarmes</title>
+  <script type='text/javascript' src='alarme.js' defer></script>
+  <link href="style.css" rel="stylesheet" media="all" type="text/css"> 
+  <link href="alarme.css" rel="stylesheet" media="all" type="text/css"> 
+ 
+</head>
+  <h1>WS2812FX FR Alarmes</h1>
+  <br>
+  <div id='controls'>
+<table id="table">
+	<tr>
+		<td>Paramètres</td>
+		<td>
+		Heure Minute Marche/Arrêt Jour Couleur Mode 
+		</td>
+	</tr>
+	<tr>
+		<td id="alarme">Alarme 1</td>
+		<td>
+		<input type="number" id="Alarme 10" value="0" min="0" max="24" maxlength="2"/>
+		<input type="number" id="Alarme 11" value="0" min="0" max="59" maxlength="2"/>
+		<input list="marche"  id="Alarme 12" onclick="(this.value='')"/>
+		<input list="jour"  id="Alarme 13" onclick="(this.value='')"/>
+		<input list="couleur"  id="Alarme 14" onclick="(this.value='')"/>
+	    <input list="modes"  id="Alarme 15" onclick="(this.value='')"/>
+		</td>
+	</tr>
+	<tr>
+		<td id="alarme">Alarme 2</td>
+		<td>
+		<input type="number" id="Alarme 20" value="0" min="0" max="24" maxlength="2"/>
+		<input type="number" id="Alarme 21" value="0" min="0" max="59" maxlength="2"/>
+		<input list="marche"  id="Alarme 22" onclick="(this.value='')"/>
+		<input list="jour"  id="Alarme 23" onclick="(this.value='')"/>
+		<input list="couleur"  id="Alarme 24" onclick="(this.value='')"/>
+		<input list="modes"  id="Alarme 25" onclick="(this.value='')"/>
+		</td>
+	</tr>
+	<tr>
+		<td id="alarme">Alarme 3</td>
+		<td>
+		<input type="number" id="Alarme 30" value="0" min="0" max="24" maxlength="2"/>
+		<input type="number" id="Alarme 31" value="0" min="0" max="59" maxlength="2"/>
+		<input list="marche"  id="Alarme 32" onclick="(this.value='')"/>
+		<input list="jour"  id="Alarme 33" onclick="(this.value='')"/>
+		<input list="couleur"  id="Alarme 34" onclick="(this.value='')"/>
+		<input list="modes"  id="Alarme 35" onclick="(this.value='')"/>
+		</td>
+	</tr>
+	<tr>
+		<td id="alarme">Alarme 4</td>
+		<td>
+		<input type="number" id="Alarme 40" value="0" min="0" max="24" maxlength="2"/>
+		<input type="number" id="Alarme 41" value="0" min="0" max="59" maxlength="2"/>
+		<input list="marche"  id="Alarme 42" onclick="(this.value='')"/>
+		<input list="jour"  id="Alarme 43" onclick="(this.value='')"/>
+		<input list="couleur"  id="Alarme 44" onclick="(this.value='')"/>
+		<input list="modes"  id="Alarme 45" onclick="(this.value='')"/>
+		</td>
+	</tr>
+	<tr>
+		<td id="alarme">Alarme 5</td>
+		<td>
+		<input type="number" id="Alarme 50" value="0" min="0" max="24" maxlength="2"/>
+		<input type="number" id="Alarme 51" value="0" min="0" max="59" maxlength="2"/>
+		<input list="marche"  id="Alarme 52" onclick="(this.value='')"/>
+		<input list="jour"  id="Alarme 53" onclick="(this.value='')"/>
+		<input list="couleur"  id="Alarme 54" onclick="(this.value='')"/>
+		<input list="modes"  id="Alarme 55" onclick="(this.value='')"/>
+		</td>
+	</tr>
+</table>  <br>
+<a href="#" id="config">Valider</a>  <br>
+<a href='index.html' id="config">Sortir</a>
+    </div>
+<datalist id="jour">
+    <option value="Toujours">
+    <option value="Dimanche">
+    <option value="Lundi">
+    <option value="Mardi">
+    <option value="Mercredi">
+	<option value="Jeudi">
+	<option value="Vendredi">
+	<option value="Samedi">
+</datalist>
+<datalist id="marche">
+    <option value="On">
+    <option value="Off">
+</datalist>
+<datalist id="couleur">
+    <option value="Vert">
+    <option value="Bleu">
+	<option value="Rouge">
+	<option value="Fuchsia">
+    <option value="Violet" >
+	<option value="Blanc">
+</datalist>
+<datalist id="modes">
+ <option value="Fixe">
+ <option value="Clignotement">
+ <option value="Brise">
+ <option value="Répandre Couleur">
+ <option value="Répandre Couleur Inversé">
+ <option value="Répandre Couleur Reversé">
+ <option value="Répandre Couleur deux sens">
+ <option value="Répandre Couleur Arc-en-ciel">
+ <option value="Couleur aléatoire">
+ <option value="Dynamique Simple ">
+ <option value="Dynamique Multiple">
+ <option value="Arc-en-ciel">
+ <option value="Cycle Arc-en-ciel">
+ <option value="Scan">
+ <option value="Double Scan">
+ <option value="Fondu">
+ <option value="Chasse Théâtre">
+ <option value="Chasse Théâtre Arc-en-ciel">
+ <option value="Circulation Lumière">
+ <option value="Scintillement">
+ <option value="Scintillement Aléatoire">
+ <option value="Scintillement Fondu">
+ <option value="Scintillement Fondu Aléatoire">
+ <option value="Éclat">
+ <option value="Éclat Flash">
+ <option value="Éclat Hyper">
+ <option value="Stroboscopique">
+ <option value="Stroboscopique Arc-en-ciel">
+ <option value="Stroboscopique Multi">
+ <option value="Clignotement Arc-en-ciel">
+ <option value="Chase Blanc">
+ <option value="Chasse Couleur">
+ <option value="Chasse Aléatoire">
+ <option value="Chasse Arc-en-ciel">
+ <option value="Chasse Flash">
+ <option value="Chasse Flash Aléatoire">
+ <option value="Chasse Arc-en-ciel Blanc">
+ <option value="Chasse noir">
+ <option value="Chasse noir Arc-en-ciel">
+ <option value="Balayage Couleur Aléatoire">
+ <option value="Alternance Couleur">
+ <option value="Alternance Rouge Bleu">
+ <option value="Alternance Arc-en-ciel">
+ <option value="Scanner K2000">
+ <option value="Comète">
+ <option value="Feux d'artifice">
+ <option value="Feux d'artifice Arc-en-ciel">
+ <option value="Joyeux Noël">
+ <option value="Halloween">
+ <option value="Vacillement Feu">
+ <option value="Vacillement Feu (doux)">
+ <option value="Vacillement Feu (fort)">
+ <option value="Cirque">
+ <option value="Chasse Deux couleurs">
+ <option value="Chasse Trois couleurs">
+ <option value="ICU">
+</datalist>
+</body>
+</html>
