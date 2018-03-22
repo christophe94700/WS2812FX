@@ -37,7 +37,7 @@
   Traduction en français
   Christophe Caron 
   Initiale 2017-10-29
-  Mise à jour 16/01/2018
+  Mise à jour 22/03/2018
   christophe@caron.tv
   www.caron.ws
 */
