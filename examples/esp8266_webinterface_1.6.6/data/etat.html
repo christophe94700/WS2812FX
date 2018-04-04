@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <meta name='viewport' content='width=device-width' />
+  <title>WS2812FX FR Ctrl Etat</title>
+  <script type='text/javascript' src='main.js'></script>
+  <link href="style.css" rel="stylesheet" media="all" type="text/css"> 
+  <link href="alarme.css" rel="stylesheet" media="all" type="text/css"> 
+</head>
+<body>
+<script>
+function addLoadEvent(func) {  
+      var oldonload = window.onload;  
+      if (typeof window.onload != 'function') {  
+        window.onload = func;  
+      } else {  
+        window.onload = function() {  
+          if (oldonload) {  
+            oldonload();  
+          }  
+          func();  
+        }  
+      }  
+    } 
+// Para1 variable requête Para2 variable requête item id du label	
+function etat(para1,para2,item) {
+ var xhttp = new XMLHttpRequest();
+ xhttp.onreadystatechange = function() {
+ if (xhttp.readyState == 4 && xhttp.status == 200) {
+ document.getElementById(item).innerHTML = xhttp.responseText;
+ }
+ };
+ xhttp.open('GET', 'Etat?'+para1+'='+para2, true);
+ xhttp.send();
+}   
+ addLoadEvent(function() {
+etat('wifi','ssid','ssid');
+etat('wifi','ip','iplocal');
+etat('wifi','routeur','iprouteur');
+etat('wifi','host','host');
+etat('wifi','ipdns','ipdns');
+etat('wifi','mask','mask');
+etat('conf','nbled','nbled');
+etat('conf','timer','timer');
+etat('conf','gmt','gmt');
+etat('alarme','0','al0');
+etat('alarme','1','al1');
+etat('alarme','2','al2');
+etat('alarme','3','al3');
+etat('alarme','4','al4');
+etat('alarme','5','al5');
+    });  
+</script>
+
+  <h1>WS2812FX FR Etat</h1>
+  <h2 id="dateheure"></h2><br />
+  <div id='controls'>
+  <table id="table">
+   <tr>
+  <td><h2>Alarme 1 </td>
+  <td><label id="al0"></label></h2></td>
+  </tr>
+   <tr>
+  <td><h2>Alarme 2 </td>
+  <td><label id="al1"></label></h2></td>
+  </tr>
+   <tr>
+  <td><h2>Alarme 3 </td>
+  <td><label id="al2"></label></h2></td>
+  </tr>
+   <tr>
+  <td><h2>Alarme 4 </td>
+  <td><label id="al3"></label></h2></td>
+  </tr>
+   <tr>
+  <td><h2>Alarme 5 </td>
+  <td><label id="al4"></label></h2></td>
+  </tr>
+   <tr>
+  <td><h2>Alarme 6 </td>
+  <td><label id="al5"></label></h2></td>
+  </tr>
+  <tr>
+  <td><h2>Valeur du Timer d'arrêt </td>
+  <td><label id="timer"></label> minutes</h2></td>
+  </tr>
+   <tr>
+  <td><h2>Nombres de LED </td>
+  <td><label id="nbled"></label></h2></td>
+  </tr>
+  <tr>
+  <td><h2>Valeur GMT </td>
+  <td><label id="gmt"></label></h2></td>
+  </tr>
+  <tr>
+  <td><h2>WIFI SSID </td>
+  <td><label id="ssid"></label></h2></td>
+  </tr>
+  <tr>
+  <td><h2>IP local </td>
+  <td><label id="iplocal"></label></h2></td>
+  </tr>
+  <tr>
+  <td><h2>IP Passerelle </td>
+  <td><label id="iprouteur"></label></h2></td>
+  </tr>
+    <tr>
+  <td><h2>Masque réseau </td>
+  <td><label id="mask"></label></h2></td>
+  </tr>
+  <tr>
+  <td><h2>IP DNS </td>
+  <td><label id="ipdns"></label></h2></td>
+  </tr>
+  <tr>
+  <td><h2>Nom de l'hôte</td>
+  <td><label id="host"></label></h2></td>
+  </tr>
+  </table>
+  <br>
+  <a href='index.html' id="config">Sortir</a>
+  </div>
+</body>
+</html>
