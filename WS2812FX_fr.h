@@ -78,6 +78,7 @@
 #define MAGENTA    0xFF00FF
 #define PURPLE     0x400080
 #define ORANGE     0xFF3000
+#define HOTWHITE   0xFF9E25
 #define ULTRAWHITE 0xFFFFFFFF
 
 #define MODE_COUNT 57
