@@ -821,12 +821,12 @@ void Alarm_Select(int NumAlarme,int NumHeure,int NumMinute,int NumOnOff,int NumJ
 
 void Alarm_On() {
   // Allume le badeau LED
-  Serial.println(String(Alarm.Use_ID()));
+  Serial.println("Alarme Enclechement ID :"+String(Alarm.getTriggeredAlarmId()));
   int ID=0,NumAlarme=0,NumCouleur=0,NumMode=0;
   for (int i=0; i <5; i++){
     NumAlarme=i;
     ID=EEPROM.read(ADRESS_AL0+ADRESS_ALB*NumAlarme);
-    if (ID==Alarm.Use_ID()){
+    if (ID==Alarm.getTriggeredAlarmId()){
     NumCouleur=EEPROM.read(ADRESS_AL0+5+ADRESS_ALB*NumAlarme);
     NumMode=EEPROM.read(ADRESS_AL0+6+ADRESS_ALB*NumAlarme);               // Lecture valeur Mémoire mode
     Serial.println("Mode alame"+ String(NumMode));
@@ -861,7 +861,7 @@ void Alarm_On() {
 }
 void Alarm_Off() {
   // Etient le badeau LED
-  Serial.println(String(Alarm.Use_ID()));
+  Serial.println("Alarme Enclechement ID :"+String(Alarm.getTriggeredAlarmId()));
   ws2812fx.stop();
   EEPROM.write(ADRESS_ON_OFF,0);          // Sauvegarde LED en marche
   EEPROM.commit();                        // Ecriture de la RAM vers EEPROM
