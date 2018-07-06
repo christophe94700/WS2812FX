@@ -171,7 +171,7 @@ void setup() {
   init_server();                                                  // Initialisation des serveurs
   Date_Heure();                                                   // initialisation de la date et de l'heure
   AlarmInit();                                                    // Initialisation des alarmes
-  if (WifiAP == false) InitAlexa();                               // Initialisation des Alexa
+  if (WifiAP == false) InitAlexa();                               // Initialisation d'Alexa
 }
 
 void loop() {
