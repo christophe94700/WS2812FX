@@ -32,6 +32,7 @@ etat('wifi','mask','mask');
 etat('conf','nbled','nbled');
 etat('conf','timer','timer');
 etat('conf','gmt','gmt');
+etat('conf','alexa','alexa');
 etat('alarme','0','al0');
 etat('alarme','1','al1');
 etat('alarme','2','al2');

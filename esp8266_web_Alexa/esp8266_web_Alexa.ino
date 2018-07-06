@@ -59,7 +59,7 @@
    Ajout du mode AP si pas de connexion au réseau pour configuration des paramètres réseau et LED. Amélioration du programme V1.6.5 11/03/2018
    Ajout page pour affichage des paramètres + changement Heure d'été/hiver + amélioration gestion des alarmes + modes custom V1.6.6 04/04/2018
    Ajout page pour modification du Custom Effet + Amélioration du programme gestion des alarmes V1.6.7 19/04/2018
-   Ajout commande vocale Avec Alexa Amazon SDK 2.4.1 Modification du fichier Parsing.cpp (!isEncoded||(0==_currentArgCount)){ // @20180124OF01: Workarround for Alexa Bug
+   Ajout commande vocale Avec Alexa Amazon SDK 2.4.1 Modification du fichier Parsing.cpp (!isEncoded||(0==_currentArgCount)){ // @20180124OF01: Workarround for Alexa Bug V1.6.8 05/07/2018
 */
 #include <ESP8266WiFi.h>                    //Inclusion bibliothèque gestion du WIFI de l'ESP8266
 #include <Espalexa.h>                       //Inclusion bibliothèque pour commande avec Alexa Amazone
@@ -171,7 +171,7 @@ void setup() {
   init_server();                                                  // Initialisation des serveurs
   Date_Heure();                                                   // initialisation de la date et de l'heure
   AlarmInit();                                                    // Initialisation des alarmes
-  InitAlexa();                                                    // Initialisation des Alexa
+  if (WifiAP == false) InitAlexa();                               // Initialisation des Alexa
 }
 
 void loop() {
@@ -179,7 +179,7 @@ void loop() {
   server.handleClient();
   ws2812fx.service();
 
-  if (WifiAP == false) {
+  if (WifiAP == false) {                              // mode sur réseau WIFI avec routeur
     Date_Heure();
     Alarm.delay(0);
     wifi_verif();
@@ -390,6 +390,9 @@ void srv_handle_etat() {
         ltoa(temp, buf, 10);
         server.send(200, "text/plain", buf);        // Lecture valeur GMT
       }
+      if (valeur == "alexa") {
+        server.send(200, "text/plain", (LectureStringEeprom(ADRESS_NOM_ALEXA,32)));        // Lecture valeur nom alexa
+      }
     }
     // Etat alarmes
     if (server.argName(i) == "alarme") {
@@ -560,6 +563,12 @@ void srv_handle_set() {
       tmp = EEPROM.read(ADRESS_GMT);
       if (tmp > -12 && tmp < 13) timeClient.setTimeOffset(3600 * tmp); // Initialisation du fuseau
       Serial.println("Configuration GMT: " + String(tmp));
+    }
+     // Nom du périphérique pour Alexa Commande Vocal
+    if (server.argName(i) == "alexa") {
+      WIFI_SSID_G = (&server.arg(i)[0]);
+      EcritureStringEeprom((&server.arg(i)[0]),ADRESS_NOM_ALEXA,32);
+      Serial.println("Configuration Nom périphérique Alexa: "+ LectureStringEeprom(ADRESS_NOM_ALEXA,32));
     }
   }
   server.send(200, "text/plain", "OK");
@@ -858,6 +867,7 @@ void Date_Heure() {
   temp += year();
   temp += " Heure: ";
   DateHeure = temp + timeClient.getFormattedTime();
+  if (timeClient.getFormattedTime()=="04:00:00") raz(); // Raz à 4h00 du matin
   setSyncProvider(getNtpTime);
 }
 /*-------- NTP code ----------*/
@@ -1157,13 +1167,11 @@ void InitAlexa() {
 }
 //Retour Fonction Alexa
 void LampeChange(uint8_t brightness) {
-  Serial.print("Device 1 changed to ");
+  Serial.print("Changement d'état: ");
+  Serial.println(LectureStringEeprom(ADRESS_NOM_ALEXA,32));
 
-  //do what you need to do here
-
-  //EXAMPLE
   if (brightness) {
-    Serial.print("Marche, Niveau");
+    Serial.print("Marche, Niveau: ");
     Serial.println(brightness);
     ws2812fx.setColor(HOTWHITE);                            // Lecture valeur couleur Blanc chaud
     ws2812fx.setBrightness(brightness);                     // Lecture valeur de la luminosité
