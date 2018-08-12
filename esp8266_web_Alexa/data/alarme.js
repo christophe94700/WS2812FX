@@ -62,7 +62,9 @@ function valider(e){
 	envoie=envoie+num+",";
 	// Sélection du mode
 	num = ListIndex("modes", (selected[i]+5));
-	envoie=envoie+num;
+	envoie=envoie+num+",";
+	// Sélection du Timer
+	if ((document.getElementById(selected[i]+6).value)!=null) envoie=envoie+document.getElementById(selected[i]+6).value;
 	valeur=selected[i].split(" ");
     console.log((valeur[1]-1)+","+envoie);
 	submitVal("tal", (((valeur[1]-1).toString())+","+envoie));
