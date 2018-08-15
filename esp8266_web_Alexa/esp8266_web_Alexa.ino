@@ -88,6 +88,7 @@ void raz() {
   ws2812fx.stop();         // Arrêt LED
   delay(500);
   WiFi.mode(WIFI_OFF);     // Arrêt du WIFI
+  Serial.println("+++ Redémarrage du module +++");        //Saut de ligne
   ESP.restart();           // Redémarrage
 }
 

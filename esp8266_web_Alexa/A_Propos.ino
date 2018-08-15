@@ -58,7 +58,7 @@
    Ajout page pour affichage des paramètres + changement Heure d'été/hiver + amélioration gestion des alarmes + modes custom V1.6.6 04/04/2018
    Ajout page pour modification du Custom Effet + Amélioration du programme gestion des alarmes V1.6.7 19/04/2018
    Ajout commande vocale Avec Alexa Amazon SDK 2.4.1 Modification du fichier Parsing.cpp (!isEncoded||(0==_currentArgCount)){ // @20180124OF01: Workarround for Alexa Bug V1.6.8 05/07/2018
-   Séparation du programme en plusieurs fichiers V1.6.9 12/08/2018 
+   Séparation du programme en plusieurs fichiers V1.6.9 15/08/2018 
    SDK 2.4.2 Modification du fichier Parsing.cpp (!isEncoded||(0==_currentArgCount)){ // @20180124OF01: Workarround for Alexa Bug
    Ajout d'un timer d'arrêt pour les alarmes + Corrections de Bug Mineur 
 */
