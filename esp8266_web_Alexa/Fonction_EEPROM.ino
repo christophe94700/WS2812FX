@@ -66,7 +66,7 @@ String LectureStringEeprom(int adresse, int taille)
   String valeur = "";
   for (int i = 0; i < taille; ++i)
   {
-    if (((EEPROM.read(i + adresse))<32)||((EEPROM.read(i + adresse))>122)) return (WiFi.hostname().c_str()); // Caractères entre 32 et 122 retour nom du module
+    if ((EEPROM.read(i + adresse))==0) return (WiFi.hostname().c_str()); // Caractères entre 32 et 122 retour nom du module
     valeur += char(EEPROM.read(i + adresse));
   }
   return String(valeur);
