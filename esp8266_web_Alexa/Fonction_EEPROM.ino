@@ -45,10 +45,10 @@ void EffaceWifiEeprom() {
 }
 
 // Ecriture String EEPROM
-void EcritureStringEeprom(String valeur, int adresse,int taille) {
+void EcritureStringEeprom(String valeur, int adresse, int taille) {
   // Effacement de la zone mémoire
   for (int i = 0 ; i < taille; ++i) {
-    EEPROM.write(i+adresse, 0);
+    EEPROM.write(i + adresse, 0);
   }
   EEPROM.commit();
   //Ecriture
@@ -66,10 +66,41 @@ String LectureStringEeprom(int adresse, int taille)
   String valeur = "";
   for (int i = 0; i < taille; ++i)
   {
-    if (((EEPROM.read(i + adresse))<32)||((EEPROM.read(i + adresse))>122)) return (WiFi.hostname().c_str()); // Caractères entre 32 et 122 retour nom du module
+    if ((EEPROM.read(i + adresse)) == 0) return String(valeur);
     valeur += char(EEPROM.read(i + adresse));
   }
   return String(valeur);
+}
+// Initialisation des valeurs dans EEPROM
+void InitEeprom() {
+  int8_t tmp = 0;
+  tmp = EEPROM.read(ADRESS_EEPROM_INIT);
+  if (tmp != 20) {
+    EEPROM.write(ADRESS_LED_LUM, DEF_LED_LUM);          // Sauvegarde de la luminosité
+    EEPROM.write(ADRESS_LED_MOD, DEF_LED_MOD);          // Sauvegarde du mode
+    EEPROMWritelong(ADRESS_LED_VIT, DEF_LED_VIT, 2);    // Sauvegarde de la vitesse
+    EEPROMWritelong(ADRESS_LED_COL, DEF_LED_COL, 4);    // Sauvegarde de la couleur
+    EEPROMWritelong(ADRESS_NLED, DEF_NLED, 2);          // Sauvegarde Nombre de LED
+    EEPROM.write(ADRESS_ON_OFF, DEF_ON_OFF);            // Sauvegarde LED en marche
+    EEPROMWritelong(ADRESS_MINUTEUR, DEF_MINUTEUR, 4);  // Sauvegarde valeur minuteur en seconde
+    EEPROM.write(ADRESS_GMT, DEF_GMT);                  // Sauvegarde GMT
+    // Defaut paramètres WIFI
+    for (int i = ADRESS_WIFI; i < ADRESS_NLED; ++i) {
+      EEPROM.write(i, 0);
+    }
+    // Defaut paramètres Custom Effect
+    for (int i = ADRESS_CUSTOM_S1; i < ADRESS_CUSTOM_S3+9; ++i) {
+      EEPROM.write(i, 0);
+    }
+    // Defaut paramètres Alarmes
+    for (int i = 0; i < NB_ALARME; i++) {
+      EEPROM.write((ADRESS_AL0 + ADRESS_ALB * i), 255);
+    }
+    EcritureStringEeprom("Alexa"+String(ESP.getChipId()), ADRESS_NOM_ALEXA, 32);  // Defaut paramètres Alexa
+    EEPROM.write(ADRESS_EEPROM_INIT, 20);
+    EEPROM.commit();
+  }
+  Serial.println("+++ Valeur par défaut EEPROM +++");        //Saut de ligne
 }
 
 

@@ -14,6 +14,9 @@ void conf_serie() {
     if (valeur == "init") {
       AlarmInit();
     }
+    if (valeur == "eeprom") {
+      InitEeprom();
+    }
 
     if (valeur == "led") {
       Serial.println("Entrer le nombres de LED");

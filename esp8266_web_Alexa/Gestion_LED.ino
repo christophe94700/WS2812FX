@@ -1,7 +1,6 @@
 
 // Initialisation du bandeau LED
 void initLed() {
-  if (EEPROMReadlong(ADRESS_NLED, 2) > LED_MAX) EEPROMWritelong(ADRESS_NLED, LED_MAX, 2);
   ws2812fx.setCustomMode(myCustomEffect);             // Initialisation de l'effect custom
   Serial.print("Nombres de Led: ");
   Serial.printf("%d", EEPROMReadlong(ADRESS_NLED, 2));

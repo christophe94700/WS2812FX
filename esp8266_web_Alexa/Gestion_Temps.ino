@@ -23,7 +23,7 @@ time_t getNtpTime() {
 }
 
 void Timer1S() {
-  if (MinuteurStop == 0) {
+  if (MinuteurStop <=0) {
     ws2812fx.stop();
     Alarm.disable(AlarmeMin);
     MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 4)); // Lecture valeur minuteur dams Mémoire.

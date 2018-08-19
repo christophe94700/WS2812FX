@@ -7,7 +7,6 @@
 #define HTTP_PORT 80                        // Port de connexion pour le serveur HTTP
 
 #define LED_PIN 2                           // 0 = GPIO0, 2=GPIO2
-#define LED_MAX 1000                        // Nombres de LED MAX 
 
 // Adresse EEPROM
 #define ADRESS_LED_LUM 0                    // Adresse pour le stockage dans EEPROM de la Luminosité
@@ -40,3 +39,16 @@
 
 #define ADRESS_ALB 8                        // Nombres de mots par alarme
 #define NB_ALARME 6                         // Nombres d'alarme
+
+#define ADRESS_EEPROM_INIT 400              // Adresse mémorisation de l'initialisation de EEPROM
+
+// Valeur par défaut EEPROM
+#define DEF_LED_LUM 255                    // Valeur par défaut EEPROM de la Luminosité
+#define DEF_LED_MOD 0                      // Valeur par défaut EEPROM du Fixe
+#define DEF_LED_VIT 3000                   // Valeur par défaut EEPROM de la vitesse 
+#define DEF_LED_COL HOTWHITE               // Valeur par défaut EEPROM de la couleur 
+
+#define DEF_NLED 10                     // Valeur par défaut EEPROM Nombre de LED
+#define DEF_ON_OFF 0                   // Valeur par défaut EEPROM Marche/Arrêt du bandeau LED 112
+#define DEF_MINUTEUR 1                 // Valeur par défaut EEPROM Minuteur
+#define DEF_GMT  0                     // Paramètre GMT heure été/hivers 

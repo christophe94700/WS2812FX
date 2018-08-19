@@ -44,6 +44,7 @@ Espalexa espalexa;                                 // Alexa
 
 void setup() {
   EEPROM.begin(512);                                //Initialise zone mémoire dans eeprom
+  InitEeprom();                                     //Initialisation EEprom apres effacement
   Serial.begin(115200);                             //Vitesse liaison série 115200
   Serial.println();                                 //Saut de ligne
   Serial.println();                                 //Saut de ligne
@@ -61,7 +62,7 @@ void setup() {
   initLed();                                                      // Initialisation du bandeau LED
   wifi_setup();                                                   // Initialisation du wifi
   int8_t tmp = EEPROM.read(ADRESS_GMT);                           // Lecture du fuseau horaire
-  if (tmp > -12 && tmp < 13) timeClient.setTimeOffset(3600 * tmp); // Initialisation du fuseau
+  if (tmp > -12 && tmp < 13) timeClient.setTimeOffset(3600 * tmp);// Initialisation du fuseau
   timeClient.begin();                                             // Démarrage du client NTP
   SPIFFS.begin();                                                 // Démarrage du SPI Flash Files System
   init_server();                                                  // Initialisation des serveurs
@@ -74,6 +75,7 @@ void loop() {
   conf_serie();                                        // Configuration via liaison série
   server.handleClient();
   ws2812fx.service();
+  delay(1);
 
   if (WifiAP == false) {                              // mode sur réseau WIFI avec routeur
     Date_Heure();
