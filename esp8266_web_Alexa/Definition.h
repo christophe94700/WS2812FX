@@ -3,6 +3,7 @@
 #define max(a,b) ((a)>(b)?(a):(b))
 
 #define WIFI_TIMEOUT 60000                  // Vérification du WIFI toute les xxxx ms.
+#define WIFIAP_TIMEOUT 1800000              // Temps de connexion en mode AP
 #define WIFI_RESET 5                        // Reset du WIFI toute les xxxx minutes Valeur Max 255mn. Vauleur multiple de WIFI_TIMEOUT
 #define HTTP_PORT 80                        // Port de connexion pour le serveur HTTP
 
@@ -30,14 +31,14 @@
 
 #define ADRESS_NOM_ALEXA 200                // Paramètre Nom du périphérique pour Alexa 32 mots 
 
-#define ADRESS_AL0 317                      // Adresse mémorisation paramètres alarme0 8 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,timer
-#define ADRESS_AL1 325                      // Adresse mémorisation paramètres alarme1 8 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,timer 
-#define ADRESS_AL2 333                      // Adresse mémorisation paramètres alarme2 8 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,timer 
-#define ADRESS_AL3 341                      // Adresse mémorisation paramètres alarme3 8 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,timer
-#define ADRESS_AL4 349                      // Adresse mémorisation paramètres alarme4 8 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,timer
-#define ADRESS_AL5 357                      // Adresse mémorisation paramètres alarme4 8 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,timer - Fin 364
+#define ADRESS_AL0 317                      // Adresse mémorisation paramètres alarme0 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
+#define ADRESS_AL1 326                      // Adresse mémorisation paramètres alarme1 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
+#define ADRESS_AL2 335                      // Adresse mémorisation paramètres alarme2 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer 
+#define ADRESS_AL3 344                      // Adresse mémorisation paramètres alarme3 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
+#define ADRESS_AL4 353                      // Adresse mémorisation paramètres alarme4 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
+#define ADRESS_AL5 362                      // Adresse mémorisation paramètres alarme4 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer - Fin 370
 
-#define ADRESS_ALB 8                        // Nombres de mots par alarme
+#define ADRESS_ALB 9                        // Nombres de mots par alarme
 #define NB_ALARME 6                         // Nombres d'alarme
 
 #define ADRESS_EEPROM_INIT 400              // Adresse mémorisation de l'initialisation de EEPROM

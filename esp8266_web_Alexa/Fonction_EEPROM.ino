@@ -76,6 +76,10 @@ void InitEeprom() {
   int8_t tmp = 0;
   tmp = EEPROM.read(ADRESS_EEPROM_INIT);
   if (tmp != 20) {
+    // Efface EEPROM
+    for (int i = 0; i < 512; ++i) {
+      EEPROM.write(i, 0);
+    }
     EEPROM.write(ADRESS_LED_LUM, DEF_LED_LUM);          // Sauvegarde de la luminosité
     EEPROM.write(ADRESS_LED_MOD, DEF_LED_MOD);          // Sauvegarde du mode
     EEPROMWritelong(ADRESS_LED_VIT, DEF_LED_VIT, 2);    // Sauvegarde de la vitesse

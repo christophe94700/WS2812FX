@@ -36,7 +36,6 @@ void wifi_setup() {
       String ssid = "MyLED" + String(ESP.getChipId());
       String password = "MyLED" + String(ESP.getChipId());
       WiFi.softAP(ssid.c_str(), password.c_str());
-      WifiAP = true;
       return;
     }
   }
@@ -64,7 +63,6 @@ void wifi_verif() {
       Serial.print("Passerelle IP: "); Serial.println(WiFi.gatewayIP());
       Serial.print("Masque sous réseau: "); Serial.println(WiFi.subnetMask());
       Serial.print("Adresse IP DNS: "); Serial.println(WiFi.dnsIP());
-      WifiAP = false;
       if (Ping.ping(WiFi.gatewayIP())) {
         Serial.println("Ping Passerelle OK :)");
         ReseauOut = 0;

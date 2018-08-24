@@ -20,8 +20,8 @@ int MinuteurStop = 0;                       // Variable globale de la valeur du 
 uint8_t AlarmeMin = dtINVALID_ALARM_ID;     // Identification de l'alarme minuteur 60 secondes dtINVALID_ALARM_ID= 255 dans bibliothèque
 uint8_t Alarme[] = {dtINVALID_ALARM_ID, dtINVALID_ALARM_ID, dtINVALID_ALARM_ID, dtINVALID_ALARM_ID, dtINVALID_ALARM_ID, dtINVALID_ALARM_ID}; // Identification de l'alarme 0 à 5 (6 alarmes) valeur par defaut 255
 uint8_t ReseauOut = 0;                      // Variable Compteur Nombre de de perte du wifi
-boolean WifiAP = false;                     // Mode wifi AP
 String WIFI_SSID_G = "";                    // Variable globale pour configuration SSID client Web
+unsigned long Twifiap = 0;                   // Variable temps d'utilisation du mode WIFI AP
 unsigned long last_wifi_check_time = 0;
 String modes = "";                          // Variable pour la gestion des modes
 uint8_t myModes[] = {};                     // Liste des modes
@@ -68,7 +68,8 @@ void setup() {
   init_server();                                                  // Initialisation des serveurs
   Date_Heure();                                                   // initialisation de la date et de l'heure
   AlarmInit();                                                    // Initialisation des alarmes
-  if (WifiAP == false) InitAlexa();                               // Initialisation d'Alexa
+  Twifiap = millis();                                             // Initialisation du temps en mode AP
+  if (WiFi.status() == WL_CONNECTED) InitAlexa();                 // Initialisation d'Alexa
 }
 
 void loop() {
@@ -77,11 +78,16 @@ void loop() {
   ws2812fx.service();
   delay(1);
 
-  if (WifiAP == false) {                              // mode sur réseau WIFI avec routeur
+  if (WiFi.status() == WL_CONNECTED) {                 // mode sur réseau WIFI avec routeur
     Date_Heure();
     Alarm.delay(0);
     wifi_verif();
     espalexa.loop();
+    Twifiap = millis();
+  } else {
+    if (millis() - Twifiap > WIFIAP_TIMEOUT) {        // Temps en mode AP
+      raz();
+    }
   }
 }
 

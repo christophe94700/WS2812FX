@@ -58,4 +58,5 @@
    Séparation du programme en plusieurs fichiers V1.6.9 19/08/2018 
    SDK 2.4.2 Modification du fichier Parsing.cpp (!isEncoded||(0==_currentArgCount)){ // @20180124OF01: Workarround for Alexa Bug
    Ajout d'un timer d'arrêt pour les alarmes + Corrections de Bug Mineur + Initialisation des valeurs dans EEPROM
+   Amélioration du programme gestion du Wifi,Ajout d'un temps maximun en mode AP et ajout de la puissance de luminosité dans les alarmes V1.7.0 24/08/2018 
 */

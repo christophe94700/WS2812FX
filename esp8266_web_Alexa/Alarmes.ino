@@ -2,9 +2,9 @@
 // Gestion des alarmes
 
 void Active_Alarme(String ParaAl) {
-  int NumAlarme = 0, NumHeure = 0, NumMinute = 0, NumOnOff = 0, NumJour = 0, NumCouleur = 0, NumMode = 0,NumTimer=0;
+  int NumAlarme = 0, NumHeure = 0, NumMinute = 0, NumOnOff = 0, NumJour = 0, NumCouleur = 0, NumMode = 0,NumLumi=0,NumTimer=0;
   // Lecture des paramètres
-  StringSplitter *splitter = new StringSplitter(ParaAl, ',', 8);  // Initialisation de la classe avec 7 paramètres
+  StringSplitter *splitter = new StringSplitter(ParaAl, ',', 9);  // Initialisation de la classe avec 9 paramètres
   int itemCount = splitter->getItemCount();
   String para[itemCount];
   Serial.print("Paramètres alarme reçu= ");
@@ -40,8 +40,11 @@ void Active_Alarme(String ParaAl) {
   if ((para[6]).toInt() < 57 && (para[6]).toInt() >= 0) {        // Paramètre Mode 0 à 56
     NumMode = (para[6]).toInt();
   } else return; //
-  if ((para[7]).toInt() < 256 && (para[7]).toInt() >= 0) {        // Paramètre Timer 0 à 255 Si 0 Pas de timer
-    NumTimer = (para[7]).toInt();
+  if ((para[7]).toInt() < 256) {                                  // Paramètre Luminosité 0 à 255
+    NumLumi= (para[7]).toInt();
+  } else return; //
+  if ((para[8]).toInt() < 256 && (para[7]).toInt() >= 0) {        // Paramètre Timer 0 à 255 Si 0 Pas de timer
+    NumTimer = (para[8]).toInt();
   } else return; //
 
   // Sauvegarde paramètres EEPROM
@@ -52,7 +55,8 @@ void Active_Alarme(String ParaAl) {
   EEPROM.write((ADRESS_AL0 + 4 + ADRESS_ALB * (NumAlarme)), NumJour);            // Paramètre 4 Jour;
   EEPROM.write((ADRESS_AL0 + 5 + ADRESS_ALB * (NumAlarme)), NumCouleur);         // Paramètre 5 Couleur;
   EEPROM.write((ADRESS_AL0 + 6 + ADRESS_ALB * (NumAlarme)), NumMode);           // Paramètre 6 Mode;
-  EEPROM.write((ADRESS_AL0 + 7 + ADRESS_ALB * (NumAlarme)), NumTimer);           // Paramètre 7 Timer;
+  EEPROM.write((ADRESS_AL0 + 7 + ADRESS_ALB * (NumAlarme)), NumLumi);           // Paramètre 7 Luminosité;
+  EEPROM.write((ADRESS_AL0 + 8 + ADRESS_ALB * (NumAlarme)), NumTimer);           // Paramètre 8 Timer;
   EEPROM.commit();                                                                // Ecriture de la RAM vers EEPROM
   AlarmInit();                                                                    // Initialisation des alarmes
 }
@@ -138,13 +142,14 @@ void Alarm_Select(int NumAlarme, int NumHeure, int NumMinute, int NumOnOff, int 
 void Alarm_On() {
   // Allume le bandeau LED
   Serial.println("Alarme Enclechement ID :" + String(Alarm.getTriggeredAlarmId()));
-  int ID = 0, NumCouleur = 0, NumMode = 0,NumTimer=0;
+  int ID = 0, NumCouleur = 0, NumMode = 0,NumLumi=0,NumTimer=0;
   for (int i = 0; i < NB_ALARME; i++) {
     ID = EEPROM.read(ADRESS_AL0 + ADRESS_ALB * i);
     if (ID == Alarm.getTriggeredAlarmId()) {
       NumCouleur = EEPROM.read(ADRESS_AL0 + 5 + ADRESS_ALB * i);
       NumMode = EEPROM.read(ADRESS_AL0 + 6 + ADRESS_ALB * i);               // Lecture valeur Mémoire mode
-      NumTimer = EEPROM.read(ADRESS_AL0 + 7 + ADRESS_ALB * i);               // Lecture valeur Mémoire Timer
+      NumLumi = EEPROM.read(ADRESS_AL0 + 7 + ADRESS_ALB * i);               // Lecture valeur Mémoire Luminosité
+      NumTimer = EEPROM.read(ADRESS_AL0 + 8 + ADRESS_ALB * i);               // Lecture valeur Mémoire Timer
       Serial.println("Mode alame: " + String(NumMode));
       switch (NumCouleur) {
         case 0:
@@ -177,6 +182,7 @@ void Alarm_On() {
       }
       ws2812fx.setNumSegments(1);
       ws2812fx.setMode(NumMode);
+      ws2812fx.setBrightness(NumLumi);
     }
   }
   Alarm.disable(AlarmeMin);
@@ -212,7 +218,8 @@ String EtatAl(uint8_t NumAlarme) {
   texte = texte + " Jour: " + String(EEPROM.read(ADRESS_AL0 + 4 + ADRESS_ALB * NumAlarme))
           + " Couleur: " + String(EEPROM.read(ADRESS_AL0 + 5 + ADRESS_ALB * NumAlarme))
           + " Mode: " + (ws2812fx.getModeName((EEPROM.read(ADRESS_AL0 + 6 + ADRESS_ALB * NumAlarme))))
-          + " Timer: " + String(EEPROM.read(ADRESS_AL0 + 7 + ADRESS_ALB * NumAlarme));
+          + " Puissance: " + String(EEPROM.read(ADRESS_AL0 + 7 + ADRESS_ALB * NumAlarme))
+          + " Timer: " + String(EEPROM.read(ADRESS_AL0 + 8 + ADRESS_ALB * NumAlarme));
   return texte;
 }
 
