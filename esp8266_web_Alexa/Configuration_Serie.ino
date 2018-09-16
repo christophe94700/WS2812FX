@@ -10,12 +10,17 @@ void conf_serie() {
     if (valeur == "raz") {
       raz();
     }
-
+    if (valeur == "iboot") {
+      Info_reboot();
+    }
     if (valeur == "init") {
       AlarmInit();
     }
     if (valeur == "eeprom") {
       InitEeprom();
+    }
+     if (valeur == "minuteur") {
+       Alarm.enable(AlarmeMin);
     }
 
     if (valeur == "led") {

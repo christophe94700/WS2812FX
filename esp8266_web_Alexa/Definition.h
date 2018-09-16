@@ -21,6 +21,7 @@
 #define ADRESS_ON_OFF 112                   // Adresse mémorisation Marche/Arrêt du bandeau LED 112
 #define ADRESS_MINUTEUR 113                 // Adresse mémorisation Marche/Arrêt du bandeau LED 113 (Fin ADRESS_MINUTEUR + 2 mots)113-116
 #define ADRESS_GMT  117                     // Paramètre GMT heure été/hivers 1 mot
+#define ADRESS_TIMER 118                    // Timer on/off
 
 
 #define ADRESS_CUSTOM_S1 118                // Paramètre Custom Effet 1e Segment Pramètres: Mode:1 mot,Couleur: 4 mots, Vitesse: 2 mots,Sens : 1 mot total: 8 Bytes 118-125
@@ -31,14 +32,14 @@
 
 #define ADRESS_NOM_ALEXA 200                // Paramètre Nom du périphérique pour Alexa 32 mots 
 
-#define ADRESS_AL0 317                      // Adresse mémorisation paramètres alarme0 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
-#define ADRESS_AL1 326                      // Adresse mémorisation paramètres alarme1 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
-#define ADRESS_AL2 335                      // Adresse mémorisation paramètres alarme2 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer 
-#define ADRESS_AL3 344                      // Adresse mémorisation paramètres alarme3 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
-#define ADRESS_AL4 353                      // Adresse mémorisation paramètres alarme4 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
-#define ADRESS_AL5 362                      // Adresse mémorisation paramètres alarme4 9 Bytes ID,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer - Fin 370
+#define ADRESS_AL0 317                      // Adresse mémorisation paramètres alarme0 13 Bytes ID1,ID2,ID3,ID4,ID5,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
+#define ADRESS_AL1 330                      // Adresse mémorisation paramètres alarme1 13 Bytes ID1,ID2,ID3,ID4,ID5,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
+#define ADRESS_AL2 343                      // Adresse mémorisation paramètres alarme2 13 Bytes ID1,ID2,ID3,ID4,ID5,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer 
+#define ADRESS_AL3 356                      // Adresse mémorisation paramètres alarme3 13 Bytes ID1,ID2,ID3,ID4,ID5,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
+#define ADRESS_AL4 369                      // Adresse mémorisation paramètres alarme4 13 Bytes ID1,ID2,ID3,ID4,ID5,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
+#define ADRESS_AL5 382                      // Adresse mémorisation paramètres alarme5 13 Bytes ID1,ID2,ID3,ID4,ID5,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer - Fin 394
 
-#define ADRESS_ALB 9                        // Nombres de mots par alarme
+#define ADRESS_ALB 13                        // Nombres de mots par alarme
 #define NB_ALARME 6                         // Nombres d'alarme
 
 #define ADRESS_EEPROM_INIT 400              // Adresse mémorisation de l'initialisation de EEPROM
@@ -53,3 +54,21 @@
 #define DEF_ON_OFF 0                   // Valeur par défaut EEPROM Marche/Arrêt du bandeau LED 112
 #define DEF_MINUTEUR 1                 // Valeur par défaut EEPROM Minuteur
 #define DEF_GMT  0                     // Paramètre GMT heure été/hivers 
+
+
+#define S_REASON_FOR_RESTART "\nRaison du démarrage: (%d) getResetReason: %s\n\n"
+#define S_POWER_ON           "Mis sous tension."
+#define S_HARDWARE_WD        "Déclanchement du chien de garde matériel."
+#define S_EXCEPTION_OCCURED  "Occurence d'une exception.\n"
+#define S_SOFTWARE_WD        "Déclanchement du chien de garde logiciel."
+#define S_RESTART_OR_RESET   "Fonction restart() ou reset() invoquée."
+#define S_ESP_WOKE           "Réveil du ESP après un profond sommeil."
+#define S_EXTERNAL_RESET     "Réinitialisation externe du système."
+#define S_UNKNOWN_REASON     "Pour une raison inconnue."
+
+#define S_RST_RESTART "\n\nRedémarrage avec ESP.restart()"
+#define S_RST_RESET "\n\nRedémarrage avec ESP.reset()"
+#define S_RST_HWDT "\n\nRedémarrage avec déclenchement du chien de garde matériel (attendre 6 secondes)"
+#define S_RST_SWDT "\n\nRedémarrage avec déclenchement du chien de garde logociel (attendre 3 seconds)"
+#define S_RST_EXCP_0 "\n\nRedémarrage en vertu de l'exception 0: IllegalInstructionCause (division par 0)"
+#define S_RST_EXCP_3 "\n\nRedémarrage en vertu de l'exception 3: LoadStoreErrorCause"

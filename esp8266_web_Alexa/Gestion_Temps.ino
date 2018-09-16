@@ -22,23 +22,3 @@ time_t getNtpTime() {
   return (timeClient.getEpochTime());
 }
 
-void Timer1S() {
-  if (MinuteurStop <=0) {
-    ws2812fx.stop();
-    Alarm.disable(AlarmeMin);
-    MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 4)); // Lecture valeur minuteur dams Mémoire.
-  } else {
-    --MinuteurStop;
-  }
-
-  if ((MinuteurStop - 60) > 0) {
-    AffMinuteur = "Minuteur temps restant: ";
-    AffMinuteur += ((MinuteurStop / 60) + 1);
-    AffMinuteur += " mn";
-  }
-  else {
-    AffMinuteur = "Minuteur temps restant: ";
-    AffMinuteur += MinuteurStop;
-    AffMinuteur += " s";
-  }
-}
