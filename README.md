@@ -24,4 +24,6 @@ https://caron.ws/diy-cartes-microcontroleurs/mise-a-jour-du-firmware/
 Pour une version 512K (fonctionne aussi pour les versions 1M et 4M) voici les adresses mémoires pour les deux fichiers Binaires:
  esp8266_web_Alexa.ino.bin Adresse 0x00000
  esp8266_web_Alexa.spiffs.bin Adresse 0x6B000
+ 
+ 
  ![enter image description here](https://github.com/christophe94700/WS2812FX-fr/raw/master/Flash.png)
