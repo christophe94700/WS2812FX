@@ -36,12 +36,12 @@ long EEPROMReadlong(long address, int nbit)
   if (nbit == 4) return long((four << 0) & 0xFF) + ((three << 8) & 0xFFFF) + ((two << 16) & 0xFFFFFF) + ((one << 24) & 0xFFFFFFFF);
   if (nbit == 2) return uint16_t(((four << 0) & 0xFF) + ((three << 8) & 0xFFFF));
 }
-// Effacement de la zone mémoire avant écriture
+// Effacement de la zone mémoire paramètres WIFI avant écriture
 void EffaceWifiEeprom() {
   for (int i = ADRESS_WIFI ; i < ADRESS_WIFI + 96; ++i) {
     EEPROM.write(i, 0);
   }
-  EEPROM.commit();
+  //EEPROM.commit();
 }
 
 // Ecriture String EEPROM
