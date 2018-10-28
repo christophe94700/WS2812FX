@@ -14,7 +14,7 @@ void initLed() {
   ws2812fx.setSpeed(EEPROMReadlong(ADRESS_LED_VIT, 2));     // Lecture valeur Mémoire vitesse
   ws2812fx.setMode(EEPROM.read(ADRESS_LED_MOD));            // Lecture valeur Mémoire mode
   ws2812fx.setColor(EEPROMReadlong(ADRESS_LED_COL, 4));     // Lecture valeur Mémoire couleur
-  MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 4)); // Lecture valeur minuteur dams Mémoire.
+  MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 2)); // Lecture valeur minuteur dams Mémoire.
 }
 
 // Configuration de l'effet custom

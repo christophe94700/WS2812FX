@@ -114,7 +114,7 @@ void srv_handle_etat() {
         server.send(200, "text/plain", buf);        // Lecture nb led
       }
       if (valeur == "timer") {
-        temp = (EEPROMReadlong(ADRESS_MINUTEUR, 4));
+        temp = (EEPROMReadlong(ADRESS_MINUTEUR, 2));
         if (temp > 0) temp = (temp / 60); else temp = 0;
         ltoa(temp, buf, 10);
         server.send(200, "text/plain", buf);        // Lecture valeur timer
@@ -216,7 +216,7 @@ void srv_handle_set() {
 
     if (server.argName(i) == "p") {                                // Marche arrêt bandeau LED
       if (server.arg(i)[0] == 'm') {
-        MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 4));       // Lecture valeur minuteur dans Mémoire.
+        MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 2));       // Lecture valeur minuteur dans Mémoire.
         Alarm.disable(AlarmeMin);
         ws2812fx.start();
         EEPROM.write(ADRESS_ON_OFF, 1);                            // Sauvegarde LED en marche
@@ -224,7 +224,7 @@ void srv_handle_set() {
       if (server.arg(i)[0] == 'a') {
         Alarm.enable(AlarmeMin);                                 // Mise en marche de la minuterie
         if (EEPROM.read(ADRESS_ON_OFF) == 0) {                   // Arrêt du bandeau apres deuxieme appuie sur arrêt
-          MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 4)); // Lecture valeur minuteur dams Mémoire.
+          MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 2)); // Lecture valeur minuteur dams Mémoire.
           Alarm.disable(AlarmeMin);
           ws2812fx.stop();
         }
@@ -234,7 +234,7 @@ void srv_handle_set() {
     }
     if (server.argName(i) == "ta") { // Valeur de la minuterie 0- 600 mn pour arrêt en minutes
       MinuteurStop = 60 * ((int)strtol(&server.arg(i)[0], NULL, 10));
-      EEPROMWritelong(ADRESS_MINUTEUR, MinuteurStop, 4); // Sauvegarde valeur minuteur en seconde
+      EEPROMWritelong(ADRESS_MINUTEUR, MinuteurStop, 2); // Sauvegarde valeur minuteur en seconde
     }
     // Alarme
     if (server.argName(i) == "tal") { // Alarme

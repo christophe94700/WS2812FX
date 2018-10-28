@@ -10,18 +10,18 @@
 #define LED_PIN 2                           // 0 = GPIO0, 2=GPIO2
 
 // Adresse EEPROM
-#define ADRESS_LED_LUM 0                    // Adresse pour le stockage dans EEPROM de la Luminosité
-#define ADRESS_LED_MOD 1                    // Adresse pour le stockage dans EEPROM du Mode
+#define ADRESS_LED_LUM 0                    // Adresse pour le stockage dans EEPROM de la Luminosité (0)
+#define ADRESS_LED_MOD 1                    // Adresse pour le stockage dans EEPROM du Mode (1)
 #define ADRESS_LED_VIT 2                    // Adresse pour le stockage dans EEPROM de la vitesse sur 2 mots (2 et 3)
 #define ADRESS_LED_COL 4                    // Adresse pour le stockage dans EEPROM de la couleur sur 4 mots (4-7)
 
 #define ADRESS_WIFI 8                       // Adresse de départ paramètres WIFI Mot de passe et SSID (Fin ADRESS_WIFI + 96 mots)8-103
 #define ADRESS_RESEAU 104                   // Adresse de départ paramètres Reseau DHCP=0 Fixe=1, IP passerelle,Fin IP statique (Fin ADRESS_RESEAU + 6 mots)104-109
 #define ADRESS_NLED 110                     // Adresse de départ paramètres nombres de LED (Fin ADRESS_NLED + 2 mots)110-111
-#define ADRESS_ON_OFF 112                   // Adresse mémorisation Marche/Arrêt du bandeau LED 112
-#define ADRESS_MINUTEUR 113                 // Adresse mémorisation Marche/Arrêt du bandeau LED 113 (Fin ADRESS_MINUTEUR + 2 mots)113-116
-#define ADRESS_GMT  117                     // Paramètre GMT heure été/hivers 1 mot
-#define ADRESS_TIMER 118                    // Timer on/off
+#define ADRESS_ON_OFF 112                   // Adresse mémorisation Marche/Arrêt du bandeau LED (112)
+#define ADRESS_MINUTEUR 113                 // Adresse mémorisation Marche/Arrêt du bandeau LED (Fin ADRESS_MINUTEUR + 2 mots)113-114
+#define ADRESS_GMT  115                     // Paramètre GMT heure été/hivers 1 mot (115)
+#define ADRESS_TIMER 116                    // Timer on/off (116)
 
 
 #define ADRESS_CUSTOM_S1 118                // Paramètre Custom Effet 1e Segment Pramètres: Mode:1 mot,Couleur: 4 mots, Vitesse: 2 mots,Sens : 1 mot total: 8 Bytes 118-125

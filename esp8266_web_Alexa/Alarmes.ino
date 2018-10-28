@@ -7,7 +7,7 @@ void Timer1S() {
     ws2812fx.stop();
     TimerON = 0;
     Alarm.disable(AlarmeMin);
-    MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 4)); // Lecture valeur minuteur dams Mémoire.
+    MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 2)); // Lecture valeur minuteur dams Mémoire.
   } else {
     --MinuteurStop;
   }

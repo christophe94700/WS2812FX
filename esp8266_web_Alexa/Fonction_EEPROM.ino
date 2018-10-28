@@ -86,7 +86,7 @@ void InitEeprom() {
     EEPROMWritelong(ADRESS_LED_COL, DEF_LED_COL, 4);    // Sauvegarde de la couleur
     EEPROMWritelong(ADRESS_NLED, DEF_NLED, 2);          // Sauvegarde Nombre de LED
     EEPROM.write(ADRESS_ON_OFF, DEF_ON_OFF);            // Sauvegarde LED en marche
-    EEPROMWritelong(ADRESS_MINUTEUR, DEF_MINUTEUR, 4);  // Sauvegarde valeur minuteur en seconde
+    EEPROMWritelong(ADRESS_MINUTEUR, DEF_MINUTEUR, 2);  // Sauvegarde valeur minuteur en seconde
     EEPROM.write(ADRESS_GMT, DEF_GMT);                  // Sauvegarde GMT
     // Defaut paramètres WIFI
     for (int i = ADRESS_WIFI; i < ADRESS_NLED; ++i) {

@@ -5,6 +5,7 @@
 #include <EEPROM.h>                         //Inclusion bibliothèque gestion de l'EEPROM
 #include <FS.h>                             //Inclusion bibliothèque SPIFFS
 #include <WiFiUdp.h>                        //Inclusion bibliothèque pour la gestion de l'User Datagram Protocol
+#include <ArduinoOTA.h>                     //Inclusion bibliothèque pour mise à via le WIFI
 #include <NTPClient.h>                      //Inclusion bibliothèque gestion serveur NTP
 #include <TimeLib.h>                        //Inclusion bibliothèque gestion des fonctionnalités de chronométrage
 #include <TimeAlarms.h>                     //Inclusion bibliothèque gestion des fonctionnalités d'alarme et minuterie
@@ -64,7 +65,12 @@ void setup() {
   Date_Heure();                                                   // initialisation de la date et de l'heure
   AlarmInit();                                                    // Initialisation des alarmes
   Twifiap = millis();                                             // Initialisation du temps en mode AP
-  if (WiFi.status() == WL_CONNECTED) InitAlexa();                 // Initialisation d'Alexa
+  if (WiFi.status() == WL_CONNECTED) {                            // Initialisation si connexion WIFI
+    InitAlexa();                                                  // Initialisation d'Alexa
+    ArduinoOTA.setHostname("MyLED_OTA");                          // Nom du module pour mise à jour
+    //ArduinoOTA.setPassword("MyLED");                            // Mot de passe pour mise à jour
+    ArduinoOTA.begin();                                           // Initialisation de l'OTA
+  }
 }
 
 void loop() {
@@ -79,6 +85,7 @@ void loop() {
     wifi_verif();
     espalexa.loop();
     Twifiap = millis();
+    ArduinoOTA.handle();
   } else {
     if (millis() - Twifiap > WIFIAP_TIMEOUT) {        // Temps en mode AP
       raz();
