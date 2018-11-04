@@ -61,5 +61,7 @@
    Amélioration du programme gestion du Wifi,Ajout d'un temps maximun en mode AP et ajout de la puissance de luminosité dans les alarmes V1.7.0 24/08/2018
    Amélioration gestion des alarmes, de la minuterie. Ajout de la selection alarme weekend et semaine. Modifier la valeur du nombre d'alarme dans TimeAlarms_h=> dtNBR_ALARMS 40 
    Ajout information cause du reboot https://sigmdel.ca/michel/index_fr.html V1.8.0 16/09/2018
-   Ajout fonction OTA et correction bug mineur V1.9.0 28/10/2018 
+   Ajout fonction OTA et correction bug mineur V1.9.0 28/10/2018
+   Ajout fonction mDNS, mot passe pour mise à jour "admin" et accès aux paramètres. 
+   Améliorations mineurs et passage à EEPROM 1M avec 64KO pour SPIFFS pour mise à jour via OTA V1.9.1 03/11/2018 
 */

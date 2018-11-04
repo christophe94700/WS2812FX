@@ -101,6 +101,7 @@ void InitEeprom() {
       EEPROM.write((ADRESS_AL0 + ADRESS_ALB * i), 255);
     }
     EcritureStringEeprom("Alexa"+String(ESP.getChipId()), ADRESS_NOM_ALEXA, 32);  // Defaut paramètres Alexa
+    EcritureStringEeprom("admin", ADRESS_PASSWORD, 32);  // Defaut mots de passe mise à jour OTA
     EEPROM.write(ADRESS_EEPROM_INIT, 20);
     EEPROM.commit();
   }

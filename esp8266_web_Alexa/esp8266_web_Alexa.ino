@@ -1,4 +1,5 @@
 #include <ESP8266WiFi.h>                    //Inclusion bibliothèque gestion du WIFI de l'ESP8266
+#include <ESP8266mDNS.h>                    // Inclusion bibliothèque mDNS
 #include <Espalexa.h>                       //Inclusion bibliothèque pour commande avec Alexa Amazone
 #include <ESP8266WebServer.h>               //Inclusion bibliothèque gestion du serveur web de l'ESP8266
 #include <WS2812FX_fr.h>                    //Inclusion bibliothèque gestion des LED WS2812
@@ -33,6 +34,7 @@ uint8_t myModes[] = {};                     // Liste des modes
 String getContentType(String filename);     // convert the file extension to the MIME type
 bool handleFileRead(String path);           // send the right file to the client (if it exists)
 bool TimerON = 0;
+bool Admin = 0;                             // 0= pas de login 1=login validé
 //Instance des objets
 WS2812FX ws2812fx = WS2812FX(1, LED_PIN, NEO_GRB + NEO_KHZ800);
 ESP8266WebServer server(HTTP_PORT);
@@ -67,9 +69,9 @@ void setup() {
   Twifiap = millis();                                             // Initialisation du temps en mode AP
   if (WiFi.status() == WL_CONNECTED) {                            // Initialisation si connexion WIFI
     InitAlexa();                                                  // Initialisation d'Alexa
-    ArduinoOTA.setHostname("MyLED_OTA");                          // Nom du module pour mise à jour
-    //ArduinoOTA.setPassword("MyLED");                            // Mot de passe pour mise à jour
-    ArduinoOTA.begin();                                           // Initialisation de l'OTA
+    ArduinoOTA.setHostname(("MyLED"+ String(ESP.getChipId())).c_str());           // Nom du module pour mise à jour et pour le mDNS
+    ArduinoOTA.setPassword((LectureStringEeprom(ADRESS_PASSWORD,32)).c_str());   // Mot de passe pour mise à jour
+    ArduinoOTA.begin();                                                           // Initialisation de l'OTA
   }
 }
 
@@ -107,6 +109,3 @@ void raz() {
   Serial.println("+++ Redémarrage du module +++");        //Saut de ligne
   ESP.restart();           // Redémarrage
 }
-
-
-

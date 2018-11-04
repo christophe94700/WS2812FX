@@ -50,14 +50,16 @@ String getContentType(String filename) { // convert the file extension to the MI
 
 bool handleFileRead(String path) { // send the right file to the client (if it exists)
   Serial.println("handleFileRead: " + path);
-  if (path.endsWith("/")) path += "index.html"; // If a folder is requested, send the index file
-  String contentType = getContentType(path); // Get the MIME type
+  if ((path == "/parametres.html")and (Admin==0)) return false;             // Blocage de l'accès aux paramètres
+  if (path.endsWith("/")) path += "index.html";                             // If a folder is requested, send the index file
+  if (path == "/index.html") Admin=0;                                      // Blocage de l'accès aux paramètres apres retour à la page de base
+  String contentType = getContentType(path);                                // Get the MIME type
   String pathWithGz = path + ".gz";
-  if (SPIFFS.exists(pathWithGz) || SPIFFS.exists(path)) { // If the file exists, either as a compressed archive, or normal
-    if (SPIFFS.exists(pathWithGz)) // If there's a compressed version available
-      path += ".gz"; // Use the compressed version
-    File file = SPIFFS.open(path, "r"); // Open the file
-    size_t sent = server.streamFile(file, contentType); // Send it to the client
+  if (SPIFFS.exists(pathWithGz) || SPIFFS.exists(path)) {                   // If the file exists, either as a compressed archive, or normal
+    if (SPIFFS.exists(pathWithGz))                                          // If there's a compressed version available
+      path += ".gz";                                                        // Use the compressed version
+    File file = SPIFFS.open(path, "r");                                     // Open the file
+    size_t sent = server.streamFile(file, contentType);                     // Send it to the client
     file.close(); // Close the file again
     Serial.println(String("\tSent file: ") + path);
     return true;
@@ -125,7 +127,7 @@ void srv_handle_etat() {
         server.send(200, "text/plain", buf);        // Lecture valeur GMT
       }
       if (valeur == "alexa") {
-        server.send(200, "text/plain", (LectureStringEeprom(ADRESS_NOM_ALEXA,32)));        // Lecture valeur nom alexa
+        server.send(200, "text/plain", (LectureStringEeprom(ADRESS_NOM_ALEXA, 32)));       // Lecture valeur nom alexa
       }
     }
     // Etat alarmes
@@ -298,11 +300,30 @@ void srv_handle_set() {
       if (tmp > -12 && tmp < 13) timeClient.setTimeOffset(3600 * tmp); // Initialisation du fuseau
       Serial.println("Configuration GMT: " + String(tmp));
     }
-     // Nom du périphérique pour Alexa Commande Vocal
+    // Nom du périphérique pour Alexa Commande Vocal
     if (server.argName(i) == "alexa") {
       WIFI_SSID_G = (&server.arg(i)[0]);
-      EcritureStringEeprom((&server.arg(i)[0]),ADRESS_NOM_ALEXA,32);
-      Serial.println("Configuration Nom périphérique Alexa: "+ LectureStringEeprom(ADRESS_NOM_ALEXA,32));
+      EcritureStringEeprom((&server.arg(i)[0]), ADRESS_NOM_ALEXA, 32);
+      Serial.println("Configuration Nom périphérique Alexa: " + LectureStringEeprom(ADRESS_NOM_ALEXA, 32));
+    }
+    // Mot de passe pour OTA et paramètrage
+    if (server.argName(i) == "mdp") {
+      WIFI_SSID_G = (&server.arg(i)[0]);
+      EcritureStringEeprom((&server.arg(i)[0]), ADRESS_PASSWORD, 32);
+      Serial.println("Configuration Nom périphérique Alexa: " + LectureStringEeprom(ADRESS_PASSWORD, 32));
+    }
+    // Validation du mot de passe pour accès aux paramètres
+    if (server.argName(i) == "login") {
+      WIFI_SSID_G = (&server.arg(i)[0]);
+      //EcritureStringEeprom((&server.arg(i)[0]),ADRESS_PASSWORD,32);
+      if (LectureStringEeprom(ADRESS_PASSWORD, 32) == WIFI_SSID_G) {
+      Serial.println("Accès aux paramètres validés");
+        Admin = true;
+      } else {
+        Serial.println("Accès aux paramètres invalidés");
+        Admin = false;
+      }
+
     }
   }
   server.send(200, "text/plain", "OK");

@@ -30,7 +30,8 @@
 
 #define ADRESS_CUSTOMB 8                    // Nombres de mots par segment
 
-#define ADRESS_NOM_ALEXA 200                // Paramètre Nom du périphérique pour Alexa 32 mots 
+#define ADRESS_NOM_ALEXA 200                // Paramètre Nom du périphérique pour Alexa 32 mots 200-231
+#define ADRESS_PASSWORD 232                // Paramètre Nom du périphérique pour OTA et accès paramètres 32 mots 232-263
 
 #define ADRESS_AL0 317                      // Adresse mémorisation paramètres alarme0 13 Bytes ID1,ID2,ID3,ID4,ID5,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
 #define ADRESS_AL1 330                      // Adresse mémorisation paramètres alarme1 13 Bytes ID1,ID2,ID3,ID4,ID5,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
