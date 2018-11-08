@@ -310,7 +310,7 @@ void srv_handle_set() {
     if (server.argName(i) == "mdp") {
       WIFI_SSID_G = (&server.arg(i)[0]);
       EcritureStringEeprom((&server.arg(i)[0]), ADRESS_PASSWORD, 32);
-      Serial.println("Configuration Nom périphérique Alexa: " + LectureStringEeprom(ADRESS_PASSWORD, 32));
+      Serial.println("Mot de passe pour OTA et paramètrage: " + LectureStringEeprom(ADRESS_PASSWORD, 32));
     }
     // Validation du mot de passe pour accès aux paramètres
     if (server.argName(i) == "login") {

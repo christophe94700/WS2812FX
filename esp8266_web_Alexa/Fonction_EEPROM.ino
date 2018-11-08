@@ -72,12 +72,12 @@ String LectureStringEeprom(int adresse, int taille)
   return String(valeur);
 }
 // Initialisation des valeurs dans EEPROM
-void InitEeprom() {
+void InitEeprom(bool Force) {
   int8_t tmp = 0;
   tmp = EEPROM.read(ADRESS_EEPROM_INIT);
   if (tmp != 20) {
     // Efface EEPROM
-    for (int i = 0; i < 512; ++i) {
+    for (int i = 0; i < EEPROM.length(); ++i) {
       EEPROM.write(i, 0);
     }
     EEPROM.write(ADRESS_LED_LUM, DEF_LED_LUM);          // Sauvegarde de la luminosité
@@ -107,5 +107,3 @@ void InitEeprom() {
   }
   Serial.println("+++ Valeur par défaut EEPROM +++");        //Saut de ligne
 }
-
-

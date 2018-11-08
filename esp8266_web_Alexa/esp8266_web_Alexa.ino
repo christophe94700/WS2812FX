@@ -51,7 +51,7 @@ Espalexa espalexa;                                 // Alexa
 
 void setup() {
   EEPROM.begin(512);                                //Initialise zone mémoire dans eeprom
-  InitEeprom();                                     //Initialisation EEprom apres effacement
+  InitEeprom(0);                                     //Initialisation EEprom apres effacement
   Serial.begin(115200);                             //Vitesse liaison série 115200
   Info_reboot();                                    // Information sur l'origine du reboot
   Info_ESP();                                       // Information esp8266

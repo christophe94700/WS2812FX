@@ -17,7 +17,7 @@ void conf_serie() {
       AlarmInit();
     }
     if (valeur == "eeprom") {
-      InitEeprom();
+      InitEeprom(1);
     }
      if (valeur == "minuteur") {
        Alarm.enable(AlarmeMin);
