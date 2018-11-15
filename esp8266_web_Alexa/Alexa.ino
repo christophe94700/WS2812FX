@@ -14,15 +14,15 @@ void LampeChange(uint8_t brightness) {
   if (brightness) {
     Serial.print("Marche, Niveau: ");
     Serial.println(brightness);
-    ws2812fx.setColor(HOTWHITE);                            // Lecture valeur couleur Blanc chaud
-    ws2812fx.setBrightness(brightness);                     // Lecture valeur de la luminosité
-    ws2812fx.start();
+    ws2812fx->setColor(HOTWHITE);                            // Lecture valeur couleur Blanc chaud
+    ws2812fx->setBrightness(brightness);                     // Lecture valeur de la luminosité
+    ws2812fx->start();
     EEPROM.write(ADRESS_ON_OFF, 1);
     EEPROM.commit();
   }
   else  {
     Serial.println("Arrêt");
-    ws2812fx.stop();
+    ws2812fx->stop();
     EEPROM.write(ADRESS_ON_OFF, 0);
     EEPROM.commit();
   }

@@ -64,4 +64,5 @@
    Ajout fonction OTA et correction bug mineur V1.9.0 28/10/2018
    Ajout fonction mDNS, mot passe pour mise à jour "admin" et accès aux paramètres. 
    Améliorations mineurs et passage à EEPROM 1M avec 64KO pour SPIFFS pour mise à jour via OTA V1.9.1 03/11/2018 
+   Ajout Initialisation EEPROM avec paramètres par défaut apres mise à jour OTA et configuration de la broche de sortie pour la LED V1.9.2 14/11/2018
 */

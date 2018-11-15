@@ -4,7 +4,7 @@
 void Timer1S() {
   TimerON = 1;
   if (MinuteurStop <= 0) {
-    ws2812fx.stop();
+    ws2812fx->stop();
     TimerON = 0;
     Alarm.disable(AlarmeMin);
     MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 2)); // Lecture valeur minuteur dams Mémoire.
@@ -226,41 +226,41 @@ void Alarm_On() {
         Serial.println("Mode alarme: " + String(NumMode));
         switch (NumCouleur) {
           case 0:
-            ws2812fx.setColor(GREEN);                                             // Lecture valeur couleur verte
+            ws2812fx->setColor(GREEN);                                             // Lecture valeur couleur verte
             break;
           case 1 :
-            ws2812fx.setColor(BLUE);                                              // Lecture valeur couleur Bleue
+            ws2812fx->setColor(BLUE);                                              // Lecture valeur couleur Bleue
             break;
           case 2 :
-            ws2812fx.setColor(RED);                                              // Lecture valeur couleur Rouge
+            ws2812fx->setColor(RED);                                              // Lecture valeur couleur Rouge
             break;
           case 3 :
-            ws2812fx.setColor(MAGENTA);                                          // Lecture valeur couleur Fuschia
+            ws2812fx->setColor(MAGENTA);                                          // Lecture valeur couleur Fuschia
             break;
           case 4 :
-            ws2812fx.setColor(PURPLE);                                          // Lecture valeur couleur Violette
+            ws2812fx->setColor(PURPLE);                                          // Lecture valeur couleur Violette
             break;
           case 5 :
-            ws2812fx.setColor(ORANGE);                                          // Lecture valeur couleur Orange
+            ws2812fx->setColor(ORANGE);                                          // Lecture valeur couleur Orange
             break;
           case 6 :
-            ws2812fx.setColor(CYAN);                                          // Lecture valeur couleur Cyan
+            ws2812fx->setColor(CYAN);                                          // Lecture valeur couleur Cyan
             break;
           case 7 :
-            ws2812fx.setColor(YELLOW);                                          // Lecture valeur couleur Jaune
+            ws2812fx->setColor(YELLOW);                                          // Lecture valeur couleur Jaune
             break;
           case 8 :
-            ws2812fx.setColor(HOTWHITE);                                        // Lecture valeur couleur Blanc chaud
+            ws2812fx->setColor(HOTWHITE);                                        // Lecture valeur couleur Blanc chaud
             break;
         }
-        ws2812fx.setNumSegments(1);
-        ws2812fx.setMode(NumMode);
-        ws2812fx.setBrightness(NumLumi);
+        ws2812fx->setNumSegments(1);
+        ws2812fx->setMode(NumMode);
+        ws2812fx->setBrightness(NumLumi);
       }
     }
   }
   Alarm.disable(AlarmeMin);
-  ws2812fx.start();
+  ws2812fx->start();
   EEPROM.write(ADRESS_ON_OFF, 1);         // Sauvegarde LED en marche
   EEPROM.commit();                        // Ecriture de la RAM vers EEPROM
   if (NumTimer > 0) {                     // Si timer enclechement du Timer
@@ -273,7 +273,7 @@ void Alarm_On() {
 void Alarm_Off() {
   // Etient le badeau LED
   Serial.println("Alarme Enclechement ID : " + String(Alarm.getTriggeredAlarmId()));
-  ws2812fx.stop();
+  ws2812fx->stop();
   EEPROM.write(ADRESS_ON_OFF, 0);         // Sauvegarde LED Arrêt
   EEPROM.commit();                        // Ecriture de la RAM vers EEPROM
   initLed();                              // Initialisation des paramètres LED
@@ -291,9 +291,8 @@ String EtatAl(uint8_t NumAlarme) {
   if ((EEPROM.read(ADRESS_AL0 + 7 + ADRESS_ALB * NumAlarme)) == 1) texte = texte + " On "; else texte = texte + " Off ";
   texte = texte + " Jour: " + String(EEPROM.read(ADRESS_AL0 + 8 + ADRESS_ALB * NumAlarme))
           + " Couleur: " + String(EEPROM.read(ADRESS_AL0 + 9 + ADRESS_ALB * NumAlarme))
-          + " Mode: " + (ws2812fx.getModeName((EEPROM.read(ADRESS_AL0 + 10 + ADRESS_ALB * NumAlarme))))
+          + " Mode: " + (ws2812fx->getModeName((EEPROM.read(ADRESS_AL0 + 10 + ADRESS_ALB * NumAlarme))))
           + " Puissance: " + String(EEPROM.read(ADRESS_AL0 + 11 + ADRESS_ALB * NumAlarme))
           + " Timer: " + String(EEPROM.read(ADRESS_AL0 + 12 + ADRESS_ALB * NumAlarme));
   return texte;
 }
-

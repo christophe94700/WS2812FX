@@ -35,8 +35,10 @@ String getContentType(String filename);     // convert the file extension to the
 bool handleFileRead(String path);           // send the right file to the client (if it exists)
 bool TimerON = 0;
 bool Admin = 0;                             // 0= pas de login 1=login validé
+
 //Instance des objets
-WS2812FX ws2812fx = WS2812FX(1, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+WS2812FX *ws2812fx;
 ESP8266WebServer server(HTTP_PORT);
 ADC_MODE(ADC_VCC);                        // utilisation de ESP.getVcc tension d'alimentation de l'esp
 
@@ -52,6 +54,7 @@ Espalexa espalexa;                                 // Alexa
 void setup() {
   EEPROM.begin(512);                                //Initialise zone mémoire dans eeprom
   InitEeprom(0);                                     //Initialisation EEprom apres effacement
+  ws2812fx = new WS2812FX(1, EEPROM.read(ADRESS_PIN_LED), NEO_GRB + NEO_KHZ800); // Instance pour gestion du bandeau LED
   Serial.begin(115200);                             //Vitesse liaison série 115200
   Info_reboot();                                    // Information sur l'origine du reboot
   Info_ESP();                                       // Information esp8266
@@ -69,8 +72,11 @@ void setup() {
   Twifiap = millis();                                             // Initialisation du temps en mode AP
   if (WiFi.status() == WL_CONNECTED) {                            // Initialisation si connexion WIFI
     InitAlexa();                                                  // Initialisation d'Alexa
-    ArduinoOTA.setHostname(("MyLED"+ String(ESP.getChipId())).c_str());           // Nom du module pour mise à jour et pour le mDNS
-    ArduinoOTA.setPassword((LectureStringEeprom(ADRESS_PASSWORD,32)).c_str());   // Mot de passe pour mise à jour
+    ArduinoOTA.setHostname(("MyLED" + String(ESP.getChipId())).c_str());          // Nom du module pour mise à jour et pour le mDNS
+    ArduinoOTA.setPassword((LectureStringEeprom(ADRESS_PASSWORD, 32)).c_str());  // Mot de passe pour mise à jour
+    ArduinoOTA.onEnd([]() {                                                      // Effacement EEPROM après mise à jour
+      InitEeprom(1);
+    });
     ArduinoOTA.begin();                                                           // Initialisation de l'OTA
   }
 }
@@ -78,7 +84,7 @@ void setup() {
 void loop() {
   conf_serie();                                        // Configuration via liaison série
   server.handleClient();
-  ws2812fx.service();
+  ws2812fx->service();
   delay(1);
 
   if (WiFi.status() == WL_CONNECTED) {                 // mode sur réseau WIFI avec routeur
@@ -97,7 +103,7 @@ void loop() {
 
 // Raz esp8266
 void raz() {
-  ws2812fx.stop();         // Arrêt LED
+  ws2812fx->stop();         // Arrêt LED
   if (TimerON == 1) {
     EEPROM.write(ADRESS_TIMER, 1);  // Sauvegarde de la marche timer
   } else {

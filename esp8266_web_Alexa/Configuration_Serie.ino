@@ -19,8 +19,8 @@ void conf_serie() {
     if (valeur == "eeprom") {
       InitEeprom(1);
     }
-     if (valeur == "minuteur") {
-       Alarm.enable(AlarmeMin);
+    if (valeur == "minuteur") {
+      Alarm.enable(AlarmeMin);
     }
 
     if (valeur == "led") {
@@ -32,6 +32,14 @@ void conf_serie() {
       Serial.println();
       Serial.print("Nombres de Led: ");
       Serial.printf("%d", EEPROMReadlong(ADRESS_NLED, 2));
+      Serial.println("Entrer la broche pour le bandeau LED");
+      while (Serial.available() == 0) {                    //Attendre la saisie
+      }
+      valeur = Serial.readString();
+      EEPROM.write(ADRESS_PIN_LED, valeur.toInt());                 //  Broche de LED
+      Serial.println();
+      Serial.print("Broche pour le bandeau LED: ");
+      Serial.printf("%d", EEPROM.read(ADRESS_PIN_LED));
       EEPROM.commit();
       raz();                                          // Reset du module ESP01
     }
@@ -56,9 +64,9 @@ void conf_serie() {
       }
       Serial.print("Nom Alexa: ");
       //Serial.println(Serial.readString());
-      EcritureStringEeprom(Serial.readString(),ADRESS_NOM_ALEXA,32);
-      Serial.println(LectureStringEeprom(ADRESS_NOM_ALEXA,32));
-      
+      EcritureStringEeprom(Serial.readString(), ADRESS_NOM_ALEXA, 32);
+      Serial.println(LectureStringEeprom(ADRESS_NOM_ALEXA, 32));
+
     }
     if (valeur == "wifi") {
       Serial.println("Modification des paramètres wifi");

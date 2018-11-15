@@ -8,13 +8,13 @@
 */
 void modes_setup() {
   modes = "";
-  uint8_t num_modes = sizeof(myModes) > 0 ? sizeof(myModes) : ws2812fx.getModeCount();
+  uint8_t num_modes = sizeof(myModes) > 0 ? sizeof(myModes) : ws2812fx->getModeCount();
   for (uint8_t i = 0; i < num_modes; i++) {
     uint8_t m = sizeof(myModes) > 0 ? myModes[i] : i;
     modes += "<li><a href='#' class='m' id='";
     modes += m;
     modes += "'>";
-    modes += ws2812fx.getModeName(m);
+    modes += ws2812fx->getModeName(m);
     modes += "</a></li>";
   }
 }
@@ -121,8 +121,13 @@ void srv_handle_etat() {
         ltoa(temp, buf, 10);
         server.send(200, "text/plain", buf);        // Lecture valeur timer
       }
+      if (valeur == "brled") {
+        int8_t temp = EEPROM.read(ADRESS_PIN_LED);
+        ltoa(temp, buf, 10);
+        server.send(200, "text/plain", buf);        // Lecture Broche de sortie led
+      }
       if (valeur == "gmt") {
-        int8_t temp = EEPROM.read(ADRESS_GMT);;
+        int8_t temp = EEPROM.read(ADRESS_GMT);
         ltoa(temp, buf, 10);
         server.send(200, "text/plain", buf);        // Lecture valeur GMT
       }
@@ -145,11 +150,11 @@ void srv_handle_etat() {
       // Liste des modes
       if (valeur == "modes") {
         String modes = "<datalist id=\"modes\">";
-        uint8_t num_modes = sizeof(myModes) > 0 ? sizeof(myModes) : ws2812fx.getModeCount();
+        uint8_t num_modes = sizeof(myModes) > 0 ? sizeof(myModes) : ws2812fx->getModeCount();
         for (uint8_t i = 0; i < num_modes; i++) {
           uint8_t m = sizeof(myModes) > 0 ? myModes[i] : i;
-          Serial.println(ws2812fx.getModeName(m));
-          modes = modes + "<option value=\"" + (ws2812fx.getModeName(m)) + "\"" + ">" + "\n";
+          Serial.println(ws2812fx->getModeName(m));
+          modes = modes + "<option value=\"" + (ws2812fx->getModeName(m)) + "\"" + ">" + "\n";
         }
         server.send(200, "text/plaint", modes);        //Liste modes
       }
@@ -169,7 +174,7 @@ void srv_handle_set() {
     if (server.argName(i) == "c") {
       uint32_t tmp = (uint32_t) strtol(&server.arg(i)[0], NULL, 16);
       if (tmp >= 0x000000 && tmp <= 0xFFFFFF) {
-        ws2812fx.setColor(tmp);
+        ws2812fx->setColor(tmp);
         EEPROMWritelong(ADRESS_LED_COL, tmp, 4); // Sauvegarde de la couleur
         EEPROM.commit();
       }
@@ -177,42 +182,42 @@ void srv_handle_set() {
 
     if (server.argName(i) == "m") {
       uint8_t tmp = (uint8_t) strtol(&server.arg(i)[0], NULL, 10);
-      ws2812fx.setNumSegments(1);                     // utilisation du segment LED 1
-      ws2812fx.setMode(tmp % ws2812fx.getModeCount());
-      Serial.print("Mode: "); Serial.println(ws2812fx.getModeName(ws2812fx.getMode()));
-      EEPROM.write(ADRESS_LED_MOD, ws2812fx.getMode()); // Sauvegarde du mode
+      ws2812fx->setNumSegments(1);                     // utilisation du segment LED 1
+      ws2812fx->setMode(tmp % ws2812fx->getModeCount());
+      Serial.print("Mode: "); Serial.println(ws2812fx->getModeName(ws2812fx->getMode()));
+      EEPROM.write(ADRESS_LED_MOD, ws2812fx->getMode()); // Sauvegarde du mode
       EEPROM.commit();
     }
 
     if (server.argName(i) == "b") {
       uint8_t tmp = (uint8_t) strtol(&server.arg(i)[0], NULL, 10);
       if (server.arg(i)[0] == 'm') {
-        ws2812fx.setBrightness(max((int)(ws2812fx.getBrightness() * 0.8), 5));
+        ws2812fx->setBrightness(max((int)(ws2812fx->getBrightness() * 0.8), 5));
         tmp = 0;
       } else if (server.arg(i)[0] == 'p') {
-        ws2812fx.setBrightness(min((int)(ws2812fx.getBrightness() * 1.2), 255));
+        ws2812fx->setBrightness(min((int)(ws2812fx->getBrightness() * 1.2), 255));
         tmp = 0;
       } else if (tmp > 0) {
-        ws2812fx.setBrightness(tmp);
+        ws2812fx->setBrightness(tmp);
       }
-      Serial.print("Puissance lumineuse: "); Serial.println(ws2812fx.getBrightness());
-      EEPROM.write(ADRESS_LED_LUM, ws2812fx.getBrightness()); // Sauvegarde de la luminosité
+      Serial.print("Puissance lumineuse: "); Serial.println(ws2812fx->getBrightness());
+      EEPROM.write(ADRESS_LED_LUM, ws2812fx->getBrightness()); // Sauvegarde de la luminosité
       EEPROM.commit();
     }
 
     if (server.argName(i) == "s") {
       uint32_t tmp = (uint32_t) strtol(&server.arg(i)[0], NULL, 10);
       if (server.arg(i)[0] == 'm') {
-        ws2812fx.setSpeed(ws2812fx.getSpeed() * 0.8);
+        ws2812fx->setSpeed(ws2812fx->getSpeed() * 0.8);
         tmp = 0;
       } else if (server.arg(i)[0] == 'p') {
-        ws2812fx.setSpeed(ws2812fx.getSpeed() * 1.2);
+        ws2812fx->setSpeed(ws2812fx->getSpeed() * 1.2);
         tmp = 0;
       } else if (tmp > 0) {
-        ws2812fx.setSpeed(tmp);
+        ws2812fx->setSpeed(tmp);
       }
-      Serial.print("Vitesse:  "); Serial.println(ws2812fx.getSpeed());
-      EEPROMWritelong(ADRESS_LED_VIT, ws2812fx.getSpeed(), 2); // Sauvegarde de la vitesse
+      Serial.print("Vitesse:  "); Serial.println(ws2812fx->getSpeed());
+      EEPROMWritelong(ADRESS_LED_VIT, ws2812fx->getSpeed(), 2); // Sauvegarde de la vitesse
       EEPROM.commit();
     }
 
@@ -220,7 +225,7 @@ void srv_handle_set() {
       if (server.arg(i)[0] == 'm') {
         MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 2));       // Lecture valeur minuteur dans Mémoire.
         Alarm.disable(AlarmeMin);
-        ws2812fx.start();
+        ws2812fx->start();
         EEPROM.write(ADRESS_ON_OFF, 1);                            // Sauvegarde LED en marche
       }
       if (server.arg(i)[0] == 'a') {
@@ -228,7 +233,7 @@ void srv_handle_set() {
         if (EEPROM.read(ADRESS_ON_OFF) == 0) {                   // Arrêt du bandeau apres deuxieme appuie sur arrêt
           MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 2)); // Lecture valeur minuteur dams Mémoire.
           Alarm.disable(AlarmeMin);
-          ws2812fx.stop();
+          ws2812fx->stop();
         }
         EEPROM.write(ADRESS_ON_OFF, 0);                         // Sauvegarde LED à l'arrêt
       }
@@ -290,6 +295,12 @@ void srv_handle_set() {
       EEPROMWritelong(ADRESS_NLED, String(&server.arg(i)[0]).toInt(), 2);
       EEPROM.commit();
       Serial.println("Configuration Client Web Nb LED: " + String(EEPROM.read(ADRESS_NLED)));
+    }
+    // Broche de sortie LED
+    if (server.argName(i) == "brled") {
+      EEPROMWritelong(ADRESS_PIN_LED, String(&server.arg(i)[0]).toInt(), 2);
+      EEPROM.commit();
+      Serial.println("Configuration Client Web Broche LED: " + String(EEPROM.read(ADRESS_PIN_LED)));
     }
     // Heure GMT
     if (server.argName(i) == "gmt") {

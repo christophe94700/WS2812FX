@@ -75,7 +75,7 @@ String LectureStringEeprom(int adresse, int taille)
 void InitEeprom(bool Force) {
   int8_t tmp = 0;
   tmp = EEPROM.read(ADRESS_EEPROM_INIT);
-  if (tmp != 20) {
+  if ((tmp != 20) or (Force == 1)) {
     // Efface EEPROM
     for (int i = 0; i < EEPROM.length(); ++i) {
       EEPROM.write(i, 0);
@@ -103,6 +103,7 @@ void InitEeprom(bool Force) {
     EcritureStringEeprom("Alexa"+String(ESP.getChipId()), ADRESS_NOM_ALEXA, 32);  // Defaut paramètres Alexa
     EcritureStringEeprom("admin", ADRESS_PASSWORD, 32);  // Defaut mots de passe mise à jour OTA
     EEPROM.write(ADRESS_EEPROM_INIT, 20);
+    EEPROM.write(ADRESS_PIN_LED, 2);             // PIN LED PAR DEFAUT 2
     EEPROM.commit();
   }
   Serial.println("+++ Valeur par défaut EEPROM +++");        //Saut de ligne

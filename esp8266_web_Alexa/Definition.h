@@ -7,8 +7,6 @@
 #define WIFI_RESET 5                        // Reset du WIFI toute les xxxx minutes Valeur Max 255mn. Vauleur multiple de WIFI_TIMEOUT
 #define HTTP_PORT 80                        // Port de connexion pour le serveur HTTP
 
-#define LED_PIN 2                           // 0 = GPIO0, 2=GPIO2
-
 // Adresse EEPROM
 #define ADRESS_LED_LUM 0                    // Adresse pour le stockage dans EEPROM de la Luminosité (0)
 #define ADRESS_LED_MOD 1                    // Adresse pour le stockage dans EEPROM du Mode (1)
@@ -22,7 +20,7 @@
 #define ADRESS_MINUTEUR 113                 // Adresse mémorisation Marche/Arrêt du bandeau LED (Fin ADRESS_MINUTEUR + 2 mots)113-114
 #define ADRESS_GMT  115                     // Paramètre GMT heure été/hivers 1 mot (115)
 #define ADRESS_TIMER 116                    // Timer on/off (116)
-
+#define ADRESS_PIN_LED 117                  // PIN LED 
 
 #define ADRESS_CUSTOM_S1 118                // Paramètre Custom Effet 1e Segment Pramètres: Mode:1 mot,Couleur: 4 mots, Vitesse: 2 mots,Sens : 1 mot total: 8 Bytes 118-125
 #define ADRESS_CUSTOM_S2 126                // Paramètre Custom Effet 2e Segment Pramètres: Mode:1 mot,Couleur: 4 mots, Vitesse: 2 mots,Sens : 1 mot total: 8 Bytes 126-133

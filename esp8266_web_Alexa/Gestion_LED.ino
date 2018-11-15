@@ -1,19 +1,19 @@
 
 // Initialisation du bandeau LED
 void initLed() {
-  ws2812fx.setCustomMode(myCustomEffect);             // Initialisation de l'effect custom
+  ws2812fx->setCustomMode(myCustomEffect);             // Initialisation de l'effect custom
   Serial.print("Nombres de Led: ");
   Serial.printf("%d", EEPROMReadlong(ADRESS_NLED, 2));
   Serial.println();
   Serial.println("Initialisation de WS2812FX");
-  if (EEPROM.read(ADRESS_ON_OFF) == 0) ws2812fx.stop(); // Arrêt du bandeau
-  if (EEPROM.read(ADRESS_ON_OFF) == 1) ws2812fx.start(); // Marche du bandeau
-  ws2812fx.setLength(EEPROMReadlong(ADRESS_NLED, 2));
-  ws2812fx.init();
-  ws2812fx.setBrightness(EEPROM.read(ADRESS_LED_LUM));      // Lecture valeur Mémoire luminosité
-  ws2812fx.setSpeed(EEPROMReadlong(ADRESS_LED_VIT, 2));     // Lecture valeur Mémoire vitesse
-  ws2812fx.setMode(EEPROM.read(ADRESS_LED_MOD));            // Lecture valeur Mémoire mode
-  ws2812fx.setColor(EEPROMReadlong(ADRESS_LED_COL, 4));     // Lecture valeur Mémoire couleur
+  if (EEPROM.read(ADRESS_ON_OFF) == 0) ws2812fx->stop(); // Arrêt du bandeau
+  if (EEPROM.read(ADRESS_ON_OFF) == 1) ws2812fx->start(); // Marche du bandeau
+  ws2812fx->setLength(EEPROMReadlong(ADRESS_NLED, 2));
+  ws2812fx->init();
+  ws2812fx->setBrightness(EEPROM.read(ADRESS_LED_LUM));      // Lecture valeur Mémoire luminosité
+  ws2812fx->setSpeed(EEPROMReadlong(ADRESS_LED_VIT, 2));     // Lecture valeur Mémoire vitesse
+  ws2812fx->setMode(EEPROM.read(ADRESS_LED_MOD));            // Lecture valeur Mémoire mode
+  ws2812fx->setColor(EEPROMReadlong(ADRESS_LED_COL, 4));     // Lecture valeur Mémoire couleur
   MinuteurStop = (EEPROMReadlong(ADRESS_MINUTEUR, 2)); // Lecture valeur minuteur dams Mémoire.
 }
 
@@ -23,7 +23,7 @@ uint16_t myCustomEffect(void) {                           //
   uint16_t LED_COUNT = EEPROMReadlong(ADRESS_NLED, 2);    // Nombres de LED
 
   for (int i = 0; i < 3; i++) {
-    ws2812fx.setSegment(1 + i, i * LED_COUNT / 3, (1 + i)*LED_COUNT / 3 - 1,
+    ws2812fx->setSegment(1 + i, i * LED_COUNT / 3, (1 + i)*LED_COUNT / 3 - 1,
                         EEPROM.read(ADRESS_CUSTOM_S1 + 1 + ADRESS_CUSTOMB * (i)),
                         EEPROMReadlong((ADRESS_CUSTOM_S1 + 2 + ADRESS_CUSTOMB * (i)), 4),
                         EEPROMReadlong((ADRESS_CUSTOM_S1 + 6 + ADRESS_CUSTOMB * (i)), 2),
@@ -77,4 +77,3 @@ void Custom_Effet(String ParaAl) {
   EEPROM.commit();                                                                        // Ecriture de la RAM vers EEPROM
   initLed();                                                                              // Initialisation des paramètres LED
 }
-
