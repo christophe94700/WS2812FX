@@ -10,6 +10,7 @@ Mon exemple permet d'avoir:
 - Minuteur d'arrêt.
 - Configuration via la liaison série.
 - Configuration via point d'accès lors de la première mise en route.
+- Mise à jour OTA
 
 Configuration depuis la liaison série et du client web. Plus d'information sur mon site www.caron.ws rubrique ESP8266.
 
