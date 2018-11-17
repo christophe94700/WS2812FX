@@ -50,9 +50,9 @@ String getContentType(String filename) { // convert the file extension to the MI
 
 bool handleFileRead(String path) { // send the right file to the client (if it exists)
   Serial.println("handleFileRead: " + path);
-  if ((path == "/parametres.html")and (Admin==0)) return false;             // Blocage de l'accès aux paramètres
+  if ((path == "/parametres.html") and (Admin == 0)) return false;          // Blocage de l'accès aux paramètres
   if (path.endsWith("/")) path += "index.html";                             // If a folder is requested, send the index file
-  if (path == "/index.html") Admin=0;                                      // Blocage de l'accès aux paramètres apres retour à la page de base
+  if (path == "/index.html") Admin = 0;                                    // Blocage de l'accès aux paramètres apres retour à la page de base
   String contentType = getContentType(path);                                // Get the MIME type
   String pathWithGz = path + ".gz";
   if (SPIFFS.exists(pathWithGz) || SPIFFS.exists(path)) {                   // If the file exists, either as a compressed archive, or normal
@@ -133,6 +133,12 @@ void srv_handle_etat() {
       }
       if (valeur == "alexa") {
         server.send(200, "text/plain", (LectureStringEeprom(ADRESS_NOM_ALEXA, 32)));       // Lecture valeur nom alexa
+      }
+      if (valeur == "colorAlexa") {
+        temp = (EEPROMReadlong(ADRESS_LED_COL_ALEXA, 4));
+        String stringOne =  String(temp, HEX);
+        //ltoa(temp, buf, 10);
+        server.send(200, "text/plain", stringOne);       // Lecture valeur de la couleur commande vocale alexa
       }
     }
     // Etat alarmes
@@ -311,11 +317,18 @@ void srv_handle_set() {
       if (tmp > -12 && tmp < 13) timeClient.setTimeOffset(3600 * tmp); // Initialisation du fuseau
       Serial.println("Configuration GMT: " + String(tmp));
     }
-    // Nom du périphérique pour Alexa Commande Vocal
+    // Nom du périphérique pour Alexa Commande Vocale
     if (server.argName(i) == "alexa") {
       WIFI_SSID_G = (&server.arg(i)[0]);
       EcritureStringEeprom((&server.arg(i)[0]), ADRESS_NOM_ALEXA, 32);
       Serial.println("Configuration Nom périphérique Alexa: " + LectureStringEeprom(ADRESS_NOM_ALEXA, 32));
+    }
+    // Couleur pour Alexa Commande Vocale
+    if (server.argName(i) == "colorAlexa") {
+      uint32_t tmp = (uint32_t) strtol(&server.arg(i)[0], NULL, 16);
+      if (tmp >= 0x000000 && tmp <= 0xFFFFFF) {
+        EEPROMWritelong(ADRESS_LED_COL_ALEXA, tmp, 4); // Sauvegarde de la couleur
+      }
     }
     // Mot de passe pour OTA et paramètrage
     if (server.argName(i) == "mdp") {
@@ -328,7 +341,7 @@ void srv_handle_set() {
       WIFI_SSID_G = (&server.arg(i)[0]);
       //EcritureStringEeprom((&server.arg(i)[0]),ADRESS_PASSWORD,32);
       if (LectureStringEeprom(ADRESS_PASSWORD, 32) == WIFI_SSID_G) {
-      Serial.println("Accès aux paramètres validés");
+        Serial.println("Accès aux paramètres validés");
         Admin = true;
       } else {
         Serial.println("Accès aux paramètres invalidés");
@@ -336,6 +349,7 @@ void srv_handle_set() {
       }
 
     }
+
   }
   server.send(200, "text/plain", "OK");
 }

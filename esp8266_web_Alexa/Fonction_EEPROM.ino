@@ -84,6 +84,7 @@ void InitEeprom(bool Force) {
     EEPROM.write(ADRESS_LED_MOD, DEF_LED_MOD);          // Sauvegarde du mode
     EEPROMWritelong(ADRESS_LED_VIT, DEF_LED_VIT, 2);    // Sauvegarde de la vitesse
     EEPROMWritelong(ADRESS_LED_COL, DEF_LED_COL, 4);    // Sauvegarde de la couleur
+    EEPROMWritelong(ADRESS_LED_COL_ALEXA, DEF_LED_COL, 4);    // Sauvegarde de la couleur Alexa
     EEPROMWritelong(ADRESS_NLED, DEF_NLED, 2);          // Sauvegarde Nombre de LED
     EEPROM.write(ADRESS_ON_OFF, DEF_ON_OFF);            // Sauvegarde LED en marche
     EEPROMWritelong(ADRESS_MINUTEUR, DEF_MINUTEUR, 2);  // Sauvegarde valeur minuteur en seconde
@@ -93,15 +94,15 @@ void InitEeprom(bool Force) {
       EEPROM.write(i, 0);
     }
     // Defaut paramètres Custom Effect
-    for (int i = ADRESS_CUSTOM_S1; i < ADRESS_CUSTOM_S3+9; ++i) {
+    for (int i = ADRESS_CUSTOM_S1; i < ADRESS_CUSTOM_S3 + 9; ++i) {
       EEPROM.write(i, 0);
     }
     // Defaut paramètres Alarmes
     for (int i = 0; i < NB_ALARME; i++) {
       EEPROM.write((ADRESS_AL0 + ADRESS_ALB * i), 255);
     }
-    EcritureStringEeprom("Alexa"+String(ESP.getChipId()), ADRESS_NOM_ALEXA, 32);  // Defaut paramètres Alexa
-    EcritureStringEeprom("admin", ADRESS_PASSWORD, 32);  // Defaut mots de passe mise à jour OTA
+    EcritureStringEeprom("Alexa" + String(ESP.getChipId()), ADRESS_NOM_ALEXA, 32); // Defaut paramètres Alexa
+    EcritureStringEeprom(DEF_PASSWORD, ADRESS_PASSWORD, 32);  // Defaut mots de passe mise à jour OTA
     EEPROM.write(ADRESS_EEPROM_INIT, 20);
     EEPROM.write(ADRESS_PIN_LED, 2);             // PIN LED PAR DEFAUT 2
     EEPROM.commit();

@@ -5,6 +5,7 @@
   <meta name='viewport' content='width=device-width' />
   <title>WS2812FX FR Ctrl Paramètres</title>
   <script type='text/javascript' src='main.js'></script>
+    <script type="text/javascript" src="jscolor.js" ></script>
   <link href="style.css" rel="stylesheet" media="all" type="text/css"> 
   <link href="alarme.css" rel="stylesheet" media="all" type="text/css"> 
 </head>
@@ -48,6 +49,11 @@
   <tr>
   <td><h2>Nom du périphérique pour Alexa </td>
   <td><input type="Text" value="" style="text-align:center" onchange="submitVal('alexa',(this.value)) " title="Nom du périphérique"></h2></td>
+  </tr>
+  <tr>
+  <tr>
+  <td><h2>Couleur pour commande Alexa </td>
+  <td><input type="Text" class="jscolor" value="" onchange="submitVal('colorAlexa',(this.value)) " title="Couleur commande vocale"></h2></td>
   </tr>
   <tr>
   <td><h2>Mot de passe Administrateur et OTA </td>
