@@ -46,7 +46,7 @@ WiFiUDP ntpUDP;
 // Vous pouvez spécifier le nom du serveur de temps et le décalage en secondes, peut être
 // modifié plus tard avec setTimeOffset (). De plus, vous pouvez spécifier l'
 // intervalle de mise à jour en millisecondes, avec setUpdateInterval ().
-NTPClient timeClient(ntpUDP, "europe.pool.ntp.org", 3600, 60000);
+NTPClient timeClient(ntpUDP, "pool.ntp.org", 3600, 3600000);
 
 void LampeChange(uint8_t brightness);              // Retour des informations
 Espalexa espalexa;                                 // Alexa

@@ -14,11 +14,10 @@ void Date_Heure() {
   temp += year();
   temp += " Heure: ";
   DateHeure = temp + timeClient.getFormattedTime();
-  //if (timeClient.getFormattedTime() == "04:00:00") raz(); // Raz à 4h00 du matin
+  if (year()>2035) raz(); // Bug date
   setSyncProvider(getNtpTime);
 }
 /*-------- NTP code ----------*/
 time_t getNtpTime() {
   return (timeClient.getEpochTime());
 }
-

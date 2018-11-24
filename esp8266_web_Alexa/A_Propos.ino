@@ -65,5 +65,6 @@
    Ajout fonction mDNS, mot passe pour mise à jour "admin" et accès aux paramètres. 
    Améliorations mineurs et passage à EEPROM 1M avec 64KO pour SPIFFS pour mise à jour via OTA V1.9.1 03/11/2018 
    Ajout Initialisation EEPROM avec paramètres par défaut apres mise à jour OTA et configuration de la broche de sortie pour la LED V1.9.2 14/11/2018
-   Ajout de la configuration de la couleur pour commande vocal Alexa V1.9.3 17/11/2018 
+   Ajout de la configuration de la couleur pour commande vocal Alexa V1.9.3 17/11/2018
+   Ajout Raz si date > 2035 V1.9.4 Mise à jour serveur NTP et intervalle 60 minutes 24/11/2018 
 */
