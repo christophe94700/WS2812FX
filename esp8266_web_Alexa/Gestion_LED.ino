@@ -24,10 +24,10 @@ uint16_t myCustomEffect(void) {                           //
 
   for (int i = 0; i < 3; i++) {
     ws2812fx->setSegment(1 + i, i * LED_COUNT / 3, (1 + i)*LED_COUNT / 3 - 1,
-                        EEPROM.read(ADRESS_CUSTOM_S1 + 1 + ADRESS_CUSTOMB * (i)),
-                        EEPROMReadlong((ADRESS_CUSTOM_S1 + 2 + ADRESS_CUSTOMB * (i)), 4),
-                        EEPROMReadlong((ADRESS_CUSTOM_S1 + 6 + ADRESS_CUSTOMB * (i)), 2),
-                        EEPROM.read((ADRESS_CUSTOM_S1 + 8 + ADRESS_CUSTOMB * (i))));
+                         EEPROM.read(ADRESS_CUSTOM_S1 + 1 + ADRESS_CUSTOMB * (i)),
+                         EEPROMReadlong((ADRESS_CUSTOM_S1 + 2 + ADRESS_CUSTOMB * (i)), 4),
+                         EEPROMReadlong((ADRESS_CUSTOM_S1 + 6 + ADRESS_CUSTOMB * (i)), 2),
+                         EEPROM.read((ADRESS_CUSTOM_S1 + 8 + ADRESS_CUSTOMB * (i))));
   }
 }
 

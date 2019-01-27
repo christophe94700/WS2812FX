@@ -14,7 +14,7 @@ void Date_Heure() {
   temp += year();
   temp += " Heure: ";
   DateHeure = temp + timeClient.getFormattedTime();
-  if (year()>2035) raz(); // Bug date
+  if (year()>2037) raz(); // Bug date
   setSyncProvider(getNtpTime);
 }
 /*-------- NTP code ----------*/

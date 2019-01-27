@@ -40,6 +40,5 @@ void Info_ESP() {
   Serial.print("ID de EEPROM: "); Serial.println(ESP.getFlashChipId());
   Serial.print("Taille de EEPROM: "); Serial.print(ESP.getFlashChipRealSize()); Serial.println(" Octets");
   Serial.print("Alimentation Vcc: "); Serial.print((float)ESP.getVcc() / 1024.0); Serial.println(" V");
-  Serial.print("Mot de passe OTA: "); Serial.println(LectureStringEeprom(ADRESS_PASSWORD,32));
+  Serial.print("Mot de passe OTA: "); Serial.println(LectureStringEeprom(ADRESS_PASSWORD, 32));
 }
-

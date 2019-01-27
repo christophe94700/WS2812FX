@@ -41,7 +41,7 @@ void conf_serie() {
       Serial.print("Broche pour le bandeau LED: ");
       Serial.printf("%d", EEPROM.read(ADRESS_PIN_LED));
       EEPROM.commit();
-      raz();                                          // Reset du module ESP01
+      raz();                                          // Reset du module ESP
     }
     if (valeur == "alarme") {
       Serial.println("Voulez vous effacer les alarmes? Taper oui");

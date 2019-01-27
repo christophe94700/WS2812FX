@@ -25,8 +25,6 @@
 #define ADRESS_CUSTOM_S3 134                // Paramètre Custom Effet 3e Segment Pramètres: Mode:1 mot,Couleur: 4 mots, Vitesse: 2 mots,Sens : 1 mot total: 8 Bytes 134-141
 #define ADRESS_LED_COL_ALEXA 142            // Adresse pour le stockage dans EEPROM de la couleur pour Alexa sur 4 mots (4-7) 142-145
 
-
-
 #define ADRESS_NOM_ALEXA 200                // Paramètre Nom du périphérique pour Alexa 32 mots 200-231
 #define ADRESS_PASSWORD 232                // Paramètre Nom du périphérique pour OTA et accès paramètres 32 mots 232-263
 
@@ -37,12 +35,14 @@
 #define ADRESS_AL4 369                      // Adresse mémorisation paramètres alarme4 13 Bytes ID1,ID2,ID3,ID4,ID5,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer
 #define ADRESS_AL5 382                      // Adresse mémorisation paramètres alarme5 13 Bytes ID1,ID2,ID3,ID4,ID5,Heure,Minute,On/Off, Jour/toujours,couleur,mode,puissance,timer - Fin 394
 
+#define ADRESS_EEPROM_INIT 400              // Adresse mémorisation de l'initialisation de EEPROM
+
 // Paramètrages
 #define ADRESS_CUSTOMB 8                    // Nombres de mots par segment
 #define ADRESS_ALB 13                        // Nombres de mots par alarme
 #define NB_ALARME 6                         // Nombres d'alarme
 
-#define ADRESS_EEPROM_INIT 400              // Adresse mémorisation de l'initialisation de EEPROM
+
 
 // Valeur par défaut EEPROM
 #define DEF_LED_LUM 255                    // Valeur par défaut EEPROM de la Luminosité
@@ -54,11 +54,11 @@
 #define DEF_ON_OFF 0                   // Valeur par défaut EEPROM Marche/Arrêt du bandeau LED 112
 #define DEF_MINUTEUR 1                 // Valeur par défaut EEPROM Minuteur
 #define DEF_GMT  0                     // Paramètre GMT heure été/hivers 
-#define DEF_PASSWORD "admin"
+#define DEF_PASSWORD "admin"          // Paramètre mot de passe par défaut
 
 
 #define S_REASON_FOR_RESTART "\nRaison du démarrage: (%d) getResetReason: %s\n\n"
-#define S_POWER_ON           "Mis sous tension."
+#define S_POWER_ON           "Mise sous tension."
 #define S_HARDWARE_WD        "Déclenchement du chien de garde matériel."
 #define S_EXCEPTION_OCCURED  "Occurence d'une exception.\n"
 #define S_SOFTWARE_WD        "Déclenchement du chien de garde logiciel."

@@ -19,13 +19,11 @@ void modes_setup() {
   }
 }
 
-
-
 void init_server() {
   Serial.println("initialisation du serveur HTTP");
   server.onNotFound([]() {                              // If the client requests any URI
-    if (!espalexa.handleAlexaApiCall(server.uri(), server.arg(0))) //if you don't know the URI, ask espalexa whether it is an Alexa control request
-      if (!handleFileRead(server.uri()))                // send it if it exists
+    if (!espalexa.handleAlexaApiCall(server.uri(), server.arg(0)))   //if you don't know the URI, ask espalexa whether it is an Alexa control request
+      if (!handleFileRead(server.uri()))     // send it if it exists
         server.send(404, "text/plain", "404: Not Found"); // otherwise, respond with a 404 (Not Found) error
   });
   server.on("/modes", srv_handle_modes);                // Serveur pour la liste des modes
@@ -33,11 +31,9 @@ void init_server() {
   server.on("/DateHeure", srv_handle_dateheure);        // Serveur pour affichage de la date et l'heure
   server.on("/Minuteur", srv_handle_minuteur);          // Serveur pour affichage tempo
   server.on("/Etat", srv_handle_etat);                  // Serveur pour affichage des paramètres
-  server.begin();                                       // Démarrage du serveur web
   Serial.println("Serveur HTTP démarré.");
   Serial.println("Serveur HTTP prêt");
 }
-
 
 String getContentType(String filename) { // convert the file extension to the MIME type
   if (filename.endsWith(".html")) return "text/html";
@@ -87,7 +83,7 @@ void srv_handle_etat() {
   for (uint8_t i = 0; i < server.args(); i++) {
     // Etat wifi
     if (server.argName(i) == "wifi") {
-      valeur = (&server.arg(i)[0]);
+      valeur = (server.arg(i).c_str());
       if (valeur == "ssid") {
         server.send(200, "text/plain", (LectureWifiEeprom(1).c_str()));        // Lecture WIFI SSID
       }
@@ -109,7 +105,7 @@ void srv_handle_etat() {
     }
     // Etat configuration
     if (server.argName(i) == "conf") {
-      valeur = (&server.arg(i)[0]);
+      valeur = (server.arg(i).c_str());
       if (valeur == "nbled") {
         temp = (EEPROMReadlong(ADRESS_NLED, 2));
         ltoa(temp, buf, 10);
@@ -143,7 +139,7 @@ void srv_handle_etat() {
     }
     // Etat alarmes
     if (server.argName(i) == "alarme") {
-      valeur = (&server.arg(i)[0]);
+      valeur = (server.arg(i).c_str());
       for (i = 0; i < NB_ALARME; i++) {
         if (valeur.toInt() == i) {
           server.send(200, "text/plain", EtatAl(i));        // Lecture Alarme
@@ -152,7 +148,7 @@ void srv_handle_etat() {
     }
     // Etat liste
     if (server.argName(i) == "liste") {
-      valeur = (&server.arg(i)[0]);
+      valeur = (server.arg(i).c_str());
       // Liste des modes
       if (valeur == "modes") {
         String modes = "<datalist id=\"modes\">";
@@ -178,7 +174,7 @@ void srv_handle_set() {
 
   for (uint8_t i = 0; i < server.args(); i++) {
     if (server.argName(i) == "c") {
-      uint32_t tmp = (uint32_t) strtol(&server.arg(i)[0], NULL, 16);
+      uint32_t tmp = (uint32_t) strtol(server.arg(i).c_str(), NULL, 16);
       if (tmp >= 0x000000 && tmp <= 0xFFFFFF) {
         ws2812fx->setColor(tmp);
         EEPROMWritelong(ADRESS_LED_COL, tmp, 4); // Sauvegarde de la couleur
@@ -187,7 +183,7 @@ void srv_handle_set() {
     }
 
     if (server.argName(i) == "m") {
-      uint8_t tmp = (uint8_t) strtol(&server.arg(i)[0], NULL, 10);
+      uint8_t tmp = (uint8_t) strtol(server.arg(i).c_str(), NULL, 10);
       ws2812fx->setNumSegments(1);                     // utilisation du segment LED 1
       ws2812fx->setMode(tmp % ws2812fx->getModeCount());
       Serial.print("Mode: "); Serial.println(ws2812fx->getModeName(ws2812fx->getMode()));
@@ -196,7 +192,7 @@ void srv_handle_set() {
     }
 
     if (server.argName(i) == "b") {
-      uint8_t tmp = (uint8_t) strtol(&server.arg(i)[0], NULL, 10);
+      uint8_t tmp = (uint8_t) strtol(server.arg(i).c_str(), NULL, 10);
       if (server.arg(i)[0] == 'm') {
         ws2812fx->setBrightness(max((int)(ws2812fx->getBrightness() * 0.8), 5));
         tmp = 0;
@@ -212,7 +208,7 @@ void srv_handle_set() {
     }
 
     if (server.argName(i) == "s") {
-      uint32_t tmp = (uint32_t) strtol(&server.arg(i)[0], NULL, 10);
+      uint32_t tmp = (uint32_t) strtol(server.arg(i).c_str(), NULL, 10);
       if (server.arg(i)[0] == 'm') {
         ws2812fx->setSpeed(ws2812fx->getSpeed() * 0.8);
         tmp = 0;
@@ -246,16 +242,16 @@ void srv_handle_set() {
       EEPROM.commit();
     }
     if (server.argName(i) == "ta") { // Valeur de la minuterie 0- 600 mn pour arrêt en minutes
-      MinuteurStop = 60 * ((int)strtol(&server.arg(i)[0], NULL, 10));
+      MinuteurStop = 60 * ((int)strtol(server.arg(i).c_str(), NULL, 10));
       EEPROMWritelong(ADRESS_MINUTEUR, MinuteurStop, 2); // Sauvegarde valeur minuteur en seconde
     }
     // Alarme
     if (server.argName(i) == "tal") { // Alarme
-      Active_Alarme(String(&server.arg(i)[0]));
+      Active_Alarme(String(server.arg(i).c_str()));
     }
     // Custom Effet
     if (server.argName(i) == "cus") { // Custom effet
-      Custom_Effet(String(&server.arg(i)[0]));
+      Custom_Effet(String(server.arg(i).c_str()));
     }
     // Réinitialisation
     if (server.argName(i) == "raz") {
@@ -263,18 +259,18 @@ void srv_handle_set() {
     }
     // WIFI SSID
     if (server.argName(i) == "ssid") {
-      WIFI_SSID_G = (&server.arg(i)[0]);
+      WIFI_SSID_G = (server.arg(i)).c_str();
       Serial.println("Configuration Client Web SSID: " + WIFI_SSID_G);
     }
     // WIFI mot de passe
     if (server.argName(i) == "password") {
-      WIFI_PASSWORD = (&server.arg(i)[0]);
+      WIFI_PASSWORD = (server.arg(i).c_str());
       Serial.println("Configuration Client Web Mdp: " + WIFI_PASSWORD);
       EcritureWifiEeprom(WIFI_SSID_G, WIFI_PASSWORD);
     }
     // WIFI IP FIXE ou DHCP
     if (server.argName(i) == "ipfixe") {
-      WIFI_IP = (&server.arg(i)[0]);
+      WIFI_IP = (server.arg(i).c_str());
       EEPROM.write(ADRESS_RESEAU, 0);
       if (WIFI_IP != "0") {
         EEPROM.write(ADRESS_RESEAU, 1);
@@ -286,7 +282,7 @@ void srv_handle_set() {
     }
     // WIFI IP Passerelle
     if (server.argName(i) == "ippasse") {
-      WIFI_IP = (&server.arg(i)[0]);
+      WIFI_IP = (server.arg(i).c_str());
       Serial.print("Configuration Client Web IP Passerelle: ");
       for (int i = 0; i < 4; ++i)
       {
@@ -298,19 +294,19 @@ void srv_handle_set() {
     }
     // Nombres de LED
     if (server.argName(i) == "nbled") {
-      EEPROMWritelong(ADRESS_NLED, String(&server.arg(i)[0]).toInt(), 2);
+      EEPROMWritelong(ADRESS_NLED, String(server.arg(i).c_str()).toInt(), 2);
       EEPROM.commit();
       Serial.println("Configuration Client Web Nb LED: " + String(EEPROM.read(ADRESS_NLED)));
     }
     // Broche de sortie LED
     if (server.argName(i) == "brled") {
-      EEPROMWritelong(ADRESS_PIN_LED, String(&server.arg(i)[0]).toInt(), 2);
+      EEPROMWritelong(ADRESS_PIN_LED, String(server.arg(i).c_str()).toInt(), 2);
       EEPROM.commit();
       Serial.println("Configuration Client Web Broche LED: " + String(EEPROM.read(ADRESS_PIN_LED)));
     }
     // Heure GMT
     if (server.argName(i) == "gmt") {
-      int8_t tmp = (int8_t) strtol(&server.arg(i)[0], NULL, 10);
+      int8_t tmp = (int8_t) strtol(server.arg(i).c_str(), NULL, 10);
       EEPROM.write(ADRESS_GMT, tmp);
       EEPROM.commit();
       tmp = EEPROM.read(ADRESS_GMT);
@@ -319,27 +315,27 @@ void srv_handle_set() {
     }
     // Nom du périphérique pour Alexa Commande Vocale
     if (server.argName(i) == "alexa") {
-      WIFI_SSID_G = (&server.arg(i)[0]);
-      EcritureStringEeprom((&server.arg(i)[0]), ADRESS_NOM_ALEXA, 32);
+      WIFI_SSID_G = (server.arg(i)).c_str();
+      EcritureStringEeprom((server.arg(i).c_str()), ADRESS_NOM_ALEXA, 32);
       Serial.println("Configuration Nom périphérique Alexa: " + LectureStringEeprom(ADRESS_NOM_ALEXA, 32));
     }
     // Couleur pour Alexa Commande Vocale
     if (server.argName(i) == "colorAlexa") {
-      uint32_t tmp = (uint32_t) strtol(&server.arg(i)[0], NULL, 16);
+      uint32_t tmp = (uint32_t) strtol(server.arg(i).c_str(), NULL, 16);
       if (tmp >= 0x000000 && tmp <= 0xFFFFFF) {
         EEPROMWritelong(ADRESS_LED_COL_ALEXA, tmp, 4); // Sauvegarde de la couleur
       }
     }
     // Mot de passe pour OTA et paramètrage
     if (server.argName(i) == "mdp") {
-      WIFI_SSID_G = (&server.arg(i)[0]);
-      EcritureStringEeprom((&server.arg(i)[0]), ADRESS_PASSWORD, 32);
+      WIFI_SSID_G = (server.arg(i)).c_str();
+      EcritureStringEeprom((server.arg(i).c_str()), ADRESS_PASSWORD, 32);
       Serial.println("Mot de passe pour OTA et paramètrage: " + LectureStringEeprom(ADRESS_PASSWORD, 32));
     }
     // Validation du mot de passe pour accès aux paramètres
     if (server.argName(i) == "login") {
-      WIFI_SSID_G = (&server.arg(i)[0]);
-      //EcritureStringEeprom((&server.arg(i)[0]),ADRESS_PASSWORD,32);
+      WIFI_SSID_G = (server.arg(i)).c_str();
+      //EcritureStringEeprom((server.arg(i).c_str()),ADRESS_PASSWORD,32);
       if (LectureStringEeprom(ADRESS_PASSWORD, 32) == WIFI_SSID_G) {
         Serial.println("Accès aux paramètres validés");
         Admin = true;
@@ -349,7 +345,6 @@ void srv_handle_set() {
       }
 
     }
-
   }
   server.send(200, "text/plain", "OK");
 }

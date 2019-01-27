@@ -207,8 +207,6 @@ void Alarm_Select(int NumAlarme, int NumHeure, int NumMinute, int NumOnOff, int 
       //Erreur Initialisation Alarmes
       Serial.println("Erreur Initialisation Alarme " + String (NumAlarme) + " :");
   }
-  //EEPROM.write(ADRESS_AL0 + ADRESS_ALB * NumAlarme, Alarme[NumAlarme]);        // Sauvegarde ID de l'alarme
-  //EEPROM.commit();                                                             // Ecriture de la RAM vers EEPROM
 }
 
 void Alarm_On() {

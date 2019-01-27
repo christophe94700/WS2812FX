@@ -7,7 +7,7 @@ void InitAlexa() {
   espalexa.begin(&server);
 }
 //Retour Fonction Alexa
-void LampeChange(uint8_t brightness) {
+void LampeChange(uint8_t brightness, uint32_t rgb) {
   Serial.print("Changement d'état: ");
   Serial.println(LectureStringEeprom(ADRESS_NOM_ALEXA, 32));
 
@@ -26,4 +26,10 @@ void LampeChange(uint8_t brightness) {
     EEPROM.write(ADRESS_ON_OFF, 0);
     EEPROM.commit();
   }
+  Serial.print(", Rouge: ");
+  Serial.print((rgb >> 16) & 0xFF); // obtenir la composante rouge
+  Serial.print(", Vert: ");
+  Serial.print((rgb >>  8) & 0xFF); // obtenir la composante verte
+  Serial.print(", Bleu: ");
+  Serial.println(rgb & 0xFF); // obtenir la composante bleue
 }

@@ -1,6 +1,6 @@
 #include <ESP8266WiFi.h>                    //Inclusion bibliothèque gestion du WIFI de l'ESP8266
 #include <ESP8266mDNS.h>                    // Inclusion bibliothèque mDNS
-#include <Espalexa.h>                       //Inclusion bibliothèque pour commande avec Alexa Amazone
+#include <Espalexa.h>                       //Inclusion bibliothèque pour commande avec Alexa Amazon
 #include <ESP8266WebServer.h>               //Inclusion bibliothèque gestion du serveur web de l'ESP8266
 #include <WS2812FX_fr.h>                    //Inclusion bibliothèque gestion des LED WS2812
 #include <EEPROM.h>                         //Inclusion bibliothèque gestion de l'EEPROM
@@ -48,7 +48,7 @@ WiFiUDP ntpUDP;
 // intervalle de mise à jour en millisecondes, avec setUpdateInterval ().
 NTPClient timeClient(ntpUDP, "pool.ntp.org", 3600, 3600000);
 
-void LampeChange(uint8_t brightness);              // Retour des informations
+void LampeChange(uint8_t brightness, uint32_t rgb);             // Retour des informations
 Espalexa espalexa;                                 // Alexa
 
 void setup() {
@@ -66,27 +66,20 @@ void setup() {
   if (tmp > -12 && tmp < 13) timeClient.setTimeOffset(3600 * tmp);// Initialisation du fuseau
   timeClient.begin();                                             // Démarrage du client NTP
   SPIFFS.begin();                                                 // Démarrage du SPI Flash Files System
-  init_server();                                                  // Initialisation des serveurs
   Date_Heure();                                                   // initialisation de la date et de l'heure
   AlarmInit();                                                    // Initialisation des alarmes
   Twifiap = millis();                                             // Initialisation du temps en mode AP
   if (WiFi.status() == WL_CONNECTED) {                            // Initialisation si connexion WIFI
+    init_server();                                                  // Initialisation des serveurs
     InitAlexa();                                                  // Initialisation d'Alexa
-    ArduinoOTA.setHostname(("MyLED" + String(ESP.getChipId())).c_str());          // Nom du module pour mise à jour et pour le mDNS
-    ArduinoOTA.setPassword((LectureStringEeprom(ADRESS_PASSWORD, 32)).c_str());  // Mot de passe pour mise à jour
-    ArduinoOTA.onEnd([]() {                                                      // Effacement EEPROM après mise à jour
-      InitEeprom(1);
-    });
-    ArduinoOTA.begin();                                                           // Initialisation de l'OTA
+    InitOTA();                                                          // Initialisation de l'OTA
   }
 }
 
 void loop() {
   conf_serie();                                        // Configuration via liaison série
-  server.handleClient();
   ws2812fx->service();
   delay(1);
-
   if (WiFi.status() == WL_CONNECTED) {                 // mode sur réseau WIFI avec routeur
     Date_Heure();
     Alarm.delay(0);
