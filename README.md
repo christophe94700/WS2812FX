@@ -5,18 +5,18 @@ Version en français- French Version
 
 Mon exemple permet d'avoir:
 - un serveur web.
-- commande vocal avec Alexa.
+- commande vocal avec Alexa avec gestion des couleurs et de la puissance.
 - 6 alarmes de mise en marche programmée du bandeau LED.
 - Minuteur d'arrêt.
 - Configuration via la liaison série.
 - Configuration via point d'accès lors de la première mise en route.
-- Mise à jour OTA
+- Mise à jour OTA pour version supèrieure à 1M.
 
 Configuration depuis la liaison série et du client web. Plus d'information sur mon site www.caron.ws rubrique ESP8266.
 
 ## Compilation:
-Compilation avec le SDK 2.5.0 Bêta 3
-Pour l'utilisation avec Alexa, j'utilise le serveur web de la version 2.4.2 avec modification du fichier Parsing.cpp
+Compilation avec le SDK 2.5.0
+Pour l'utilisation avec Alexa, j'ai modifié le fichier Parsing.cpp du serveur web.
 
 WS2812FX - Plus d'effet pour vos LEDs!
 ======================================
@@ -32,8 +32,11 @@ Pour une version 4M avec 1M en spiffs voici les adresses mémoires pour les deux
 esp8266_web_Alexa.ino.bin Adresse 0x00000
 esp8266_web_Alexa.spiffs.bin Adresse 0x300000
 
-Vesrion compiler avec SDK2.4.2:
-Pour une version 1M avec 64K en spiffs voici les adresses mémoires pour les deux fichiers Binaires:
+Pour une version 2M avec 128K en spiffs voici les adresses mémoires pour les deux fichiers Binaires:
+esp8266_web_Alexa.ino.bin Adresse 0x00000
+esp8266_web_Alexa.spiffs.bin Adresse 0x1E0000
+
+Pour une version 1M avec 64K (Sans OTA) en spiffs voici les adresses mémoires pour les deux fichiers Binaires:
 esp8266_web_Alexa.ino.bin Adresse 0x00000
 esp8266_web_Alexa.spiffs.bin Adresse 0xEB000
  
