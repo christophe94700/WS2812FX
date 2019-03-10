@@ -6,6 +6,7 @@ void wifi_setup() {
   String WIFI_PASSWORD;
   WIFI_SSID = (LectureWifiEeprom(1));     // Lecture des paramètres WIFI SSID
   WIFI_PASSWORD = (LectureWifiEeprom(2)); // Lecture des paramètres WIFI Mot de passe
+  WiFi.hostname(("MyLED" + String(ESP.getChipId())).c_str()); 
   Serial.println("Démarrage...");
   Serial.println("Initialisation du Wifi");
   Serial.println();
@@ -130,4 +131,3 @@ void EcritureWifiEeprom(String ssid, String password) {
   }
   EEPROM.commit();
 }
-

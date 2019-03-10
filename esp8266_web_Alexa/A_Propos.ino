@@ -69,5 +69,6 @@
    Ajout Raz si date > 2035 V1.9.4 Mise à jour serveur NTP et intervalle 60 minutes 24/11/2018 
    V2.0.0 22/01/2019 Fix SDK 2.5.0  Pour Alexa j'utilise le ESP8266WebServer de la version 2.4.2 + modification du fichier Parsing.cpp (!isEncoded||(0==_currentArgCount)){ // @20180124OF01: Workarround for Alexa Bug
    Changement de la couleur ne marche pas avec ma echo dot 2.Passage à EEPROM 4M avec 1M pour SPIFFS
-   
+   V2.0.1 10/03/2019 SDK 2.5.0 modification du fichier Parsing.cpp if (contentLength || (0==_currentArgCount) ) ligne 202. Ajout de la gestion des couleurs
+   Utilisation du mode OTA si vous avez une eeprom>1M
 */

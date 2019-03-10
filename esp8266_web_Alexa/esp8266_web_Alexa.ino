@@ -1,3 +1,5 @@
+#define ModeOTA                           // Utilisation du mode OTA si eeprom>1M
+
 #include <ESP8266WiFi.h>                    //Inclusion bibliothèque gestion du WIFI de l'ESP8266
 #include <ESP8266mDNS.h>                    // Inclusion bibliothèque mDNS
 #include <Espalexa.h>                       //Inclusion bibliothèque pour commande avec Alexa Amazon
@@ -6,7 +8,9 @@
 #include <EEPROM.h>                         //Inclusion bibliothèque gestion de l'EEPROM
 #include <FS.h>                             //Inclusion bibliothèque SPIFFS
 #include <WiFiUdp.h>                        //Inclusion bibliothèque pour la gestion de l'User Datagram Protocol
+#ifdef ModeOTA
 #include <ArduinoOTA.h>                     //Inclusion bibliothèque pour mise à via le WIFI
+#endif
 #include <NTPClient.h>                      //Inclusion bibliothèque gestion serveur NTP
 #include <TimeLib.h>                        //Inclusion bibliothèque gestion des fonctionnalités de chronométrage
 #include <TimeAlarms.h>                     //Inclusion bibliothèque gestion des fonctionnalités d'alarme et minuterie
@@ -72,7 +76,10 @@ void setup() {
   if (WiFi.status() == WL_CONNECTED) {                            // Initialisation si connexion WIFI
     init_server();                                                  // Initialisation des serveurs
     InitAlexa();                                                  // Initialisation d'Alexa
-    InitOTA();                                                          // Initialisation de l'OTA
+    // Utilisation de mode OTA
+#ifdef ModeOTA
+    InitOTA();                                                    // Initialisation de l'OTA
+#endif
   }
 }
 
@@ -86,7 +93,9 @@ void loop() {
     wifi_verif();
     espalexa.loop();
     Twifiap = millis();
+#ifdef ModeOTA
     ArduinoOTA.handle();
+#endif
   } else {
     if (millis() - Twifiap > WIFIAP_TIMEOUT) {        // Temps en mode AP
       raz();
@@ -104,7 +113,6 @@ void raz() {
   }
   EEPROM.commit();
   delay(500);
-  WiFi.mode(WIFI_OFF);     // Arrêt du WIFI
   Serial.println("+++ Redémarrage du module +++");        //Saut de ligne
   ESP.restart();           // Redémarrage
 }

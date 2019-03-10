@@ -1,3 +1,4 @@
+#ifdef ModeOTA
 void InitOTA() {
   ArduinoOTA.setHostname(("MyLED" + String(ESP.getChipId())).c_str());          // Nom du module pour mise à jour et pour le mDNS
   ArduinoOTA.setPassword((LectureStringEeprom(ADRESS_PASSWORD, 32)).c_str());  // Mot de passe pour mise à jour
@@ -30,3 +31,4 @@ void InitOTA() {
   });
   ArduinoOTA.begin();
 }
+#endif

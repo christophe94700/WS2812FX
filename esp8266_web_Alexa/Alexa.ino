@@ -14,7 +14,11 @@ void LampeChange(uint8_t brightness, uint32_t rgb) {
   if (brightness) {
     Serial.print("Marche, Niveau: ");
     Serial.println(brightness);
-    ws2812fx->setColor(EEPROMReadlong(ADRESS_LED_COL_ALEXA, 4));     // Lecture valeur Mémoire couleur
+    if (EEPROM.read(ADRESS_ON_OFF) == 0) {
+      ws2812fx->setColor(EEPROMReadlong(ADRESS_LED_COL_ALEXA, 4));     // Lecture valeur Mémoire couleur valeur lor de la mise en marche
+    } else {
+      ws2812fx->setColor(rgb);                                // Gestion de la couleur
+    }
     ws2812fx->setBrightness(brightness);                     // Lecture valeur de la luminosité
     ws2812fx->start();
     EEPROM.write(ADRESS_ON_OFF, 1);

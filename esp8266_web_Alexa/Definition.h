@@ -42,8 +42,6 @@
 #define ADRESS_ALB 13                        // Nombres de mots par alarme
 #define NB_ALARME 6                         // Nombres d'alarme
 
-
-
 // Valeur par défaut EEPROM
 #define DEF_LED_LUM 255                    // Valeur par défaut EEPROM de la Luminosité
 #define DEF_LED_MOD 0                      // Valeur par défaut EEPROM du Fixe
