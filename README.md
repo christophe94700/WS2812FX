@@ -15,8 +15,7 @@ Mon exemple permet d'avoir:
 Configuration depuis la liaison série et du client web. Plus d'information sur mon site www.caron.ws rubrique ESP8266.
 
 ## Compilation:
-Compilation avec le SDK 2.5.0
-Pour l'utilisation avec Alexa, j'ai modifié le fichier Parsing.cpp du serveur web.
+Compilation avec le SDK 2.5.2
 
 WS2812FX - Plus d'effet pour vos LEDs!
 ======================================
@@ -27,7 +26,7 @@ Cette bibliothèque offre une variété d'effets pour les LEDs WS2811 / WS2812 /
 Utiliser un utilitaire pour flasher notre ESP8266. Voici les indication sur mon site:
 https://caron.ws/diy-cartes-microcontroleurs/mise-a-jour-du-firmware/
 
-Vesrion compiler avec SDK2.5.0:
+Vesrion compiler avec SDK2.5.2:
 Pour une version 4M avec 1M en spiffs voici les adresses mémoires pour les deux fichiers Binaires:
 esp8266_web_Alexa.ino.bin Adresse 0x00000
 esp8266_web_Alexa.spiffs.bin Adresse 0x300000
