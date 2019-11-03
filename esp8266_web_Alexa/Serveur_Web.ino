@@ -22,7 +22,7 @@ void modes_setup() {
 void init_server() {
   Serial.println("initialisation du serveur HTTP");
   server.onNotFound([]() {                              // If the client requests any URI
-    if (!espalexa.handleAlexaApiCall(server.uri(), server.argName(0)))   //if you don't know the URI, ask espalexa whether it is an Alexa control request
+    if (!espalexa.handleAlexaApiCall(server.uri(), server.arg(0)))   //if you don't know the URI, ask espalexa whether it is an Alexa control request
       if (!handleFileRead(server.uri()))     // send it if it exists
         server.send(404, "text/plain", "404: Not Found"); // otherwise, respond with a 404 (Not Found) error
   });
