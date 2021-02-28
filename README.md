@@ -11,6 +11,7 @@ Mon exemple permet d'avoir:
 - Configuration via la liaison série.
 - Configuration via point d'accès lors de la première mise en route.
 - Mise à jour OTA pour version supèrieure à 1M.
+- Ajout de la fonction heure d'été-Hivers
 
 Configuration depuis la liaison série et du client web. Plus d'information sur mon site www.caron.ws rubrique ESP8266.
 
