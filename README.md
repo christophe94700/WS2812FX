@@ -13,7 +13,7 @@ Mon exemple permet d'avoir:
 - Mise à jour OTA pour version supèrieure à 1M.
 - Ajout de la fonction heure d'été-Hivers
 
-Configuration depuis la liaison série et du client web. Plus d'information sur mon site www.caron.ws rubrique ESP8266.
+Configuration depuis la liaison série et du client web. Plus d'information sur mon site www.domotronic.fr rubrique ESP8266.
 
 ## Compilation:
 Compilation avec le SDK 2.7.4
