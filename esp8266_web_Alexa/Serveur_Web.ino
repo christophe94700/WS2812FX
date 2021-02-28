@@ -311,6 +311,7 @@ void srv_handle_set() {
       EEPROM.commit();
       tmp = EEPROM.read(ADRESS_GMT);
       if (tmp > -12 && tmp < 13) timeClient.setTimeOffset(3600 * tmp); // Initialisation du fuseau
+      if (tmp > 12) timeClient.setTimeOffset(0); // Si en automatique offset à zéro
       Serial.println("Configuration GMT: " + String(tmp));
     }
     // Nom du périphérique pour Alexa Commande Vocale

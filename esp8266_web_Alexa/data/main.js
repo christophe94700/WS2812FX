@@ -1,6 +1,12 @@
 
 function submitVal(name, val) {
   var xhttp = new XMLHttpRequest();
+  // Traitement GTM 
+  if (name=='gmt'){
+  if (val=='Frankfurt, Paris') { val='13'}
+  if (val=='London, Belfast') {val='14'}
+  }
+  
   xhttp.open('GET', 'set?' + name + '=' + val, true);
   xhttp.send();
   if ((name=='p') & (val=='m')){

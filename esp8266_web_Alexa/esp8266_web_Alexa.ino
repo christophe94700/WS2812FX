@@ -16,6 +16,7 @@
 #include <TimeAlarms.h>                     //Inclusion bibliothèque gestion des fonctionnalités d'alarme et minuterie
 #include <ESP8266Ping.h>                    //Inclusion bibliothèque pour le ping et modification de byte count = 1 dans la bibliothèque
 #include <StringSplitter.h>                 //Inclusion bibliothèque pour création d'un tableau depuis chaine avec séparateur Modifier nbrs MAX 5 => 10
+#include <Timezone.h>                       //Inclusion bibliothèque pour la gestion du changement d'heure en automatique
 #include "Definition.h"                     //Inclusion des définitions
 
 extern "C" {
@@ -68,6 +69,7 @@ void setup() {
   wifi_setup();                                                   // Initialisation du wifi
   int8_t tmp = EEPROM.read(ADRESS_GMT);                           // Lecture du fuseau horaire
   if (tmp > -12 && tmp < 13) timeClient.setTimeOffset(3600 * tmp);// Initialisation du fuseau
+  if (tmp > 12) timeClient.setTimeOffset(0);                      // Si en automatique offset à zéro
   timeClient.begin();                                             // Démarrage du client NTP
   SPIFFS.begin();                                                 // Démarrage du SPI Flash Files System
   Date_Heure();                                                   // initialisation de la date et de l'heure

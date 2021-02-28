@@ -72,4 +72,5 @@
    V2.0.1 10/03/2019 SDK 2.5.0 modification du fichier Parsing.cpp if (contentLength || (0==_currentArgCount) ) ligne 202. Ajout de la gestion des couleurs
    Utilisation du mode OTA si vous avez une eeprom>1M
    V2.0.2 03/11/2019 SDK 2.5.2 Bug sur serveur WEB. Pas de modification sur le SDK 
+   V2.0.3 27/02/2021 SDK 2.7.4 Ajout de la fonction changement automatique heure d'été/hivers Paris et Londre
 */
