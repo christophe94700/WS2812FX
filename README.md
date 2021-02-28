@@ -16,7 +16,7 @@ Mon exemple permet d'avoir:
 Configuration depuis la liaison série et du client web. Plus d'information sur mon site www.caron.ws rubrique ESP8266.
 
 ## Compilation:
-Compilation avec le SDK 2.5.2
+Compilation avec le SDK 2.7.4
 
 WS2812FX - Plus d'effet pour vos LEDs!
 ======================================
@@ -25,7 +25,7 @@ Cette bibliothèque offre une variété d'effets pour les LEDs WS2811 / WS2812 /
 
 ## Chargement des fichiers Binaires:
 Utiliser un utilitaire pour flasher notre ESP8266. Voici les indication sur mon site:
-https://caron.ws/diy-cartes-microcontroleurs/mise-a-jour-du-firmware/
+https://domotronic.fr/diy-cartes-microcontroleurs/mise-a-jour-du-firmware/
 
 Vesrion compiler avec SDK2.5.2:
 Pour une version 4M avec 1M en spiffs voici les adresses mémoires pour les deux fichiers Binaires:
