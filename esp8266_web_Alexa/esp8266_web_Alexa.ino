@@ -1,4 +1,4 @@
-#define ModeOTA                           // Utilisation du mode OTA si eeprom>1M
+//#define ModeOTA                           // Utilisation du mode OTA si eeprom>1M
 
 #include <ESP8266WiFi.h>                    //Inclusion bibliothèque gestion du WIFI de l'ESP8266
 #include <ESP8266mDNS.h>                    // Inclusion bibliothèque mDNS
@@ -67,9 +67,6 @@ void setup() {
   modes_setup();
   initLed();                                                      // Initialisation du bandeau LED
   wifi_setup();                                                   // Initialisation du wifi
-  int8_t tmp = EEPROM.read(ADRESS_GMT);                           // Lecture du fuseau horaire
-  if (tmp > -12 && tmp < 13) timeClient.setTimeOffset(3600 * tmp);// Initialisation du fuseau
-  if (tmp > 12) timeClient.setTimeOffset(0);                      // Si en automatique offset à zéro
   timeClient.begin();                                             // Démarrage du client NTP
   SPIFFS.begin();                                                 // Démarrage du SPI Flash Files System
   Date_Heure();                                                   // initialisation de la date et de l'heure
