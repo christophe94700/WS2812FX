@@ -18,7 +18,7 @@ utc = now();  //current time from the Time Library
 int8_t tmp = EEPROM.read(ADRESS_GMT);
 if (tmp==13) t = CE.toLocal(utc, &tcr);
 if (tmp==14) t = UK.toLocal(utc, &tcr);
-if (tmp > -12 && tmp < 13) t=now();
+if (tmp > -12 && tmp < 13) timeClient.setTimeOffset(3600 * tmp); else timeClient.setTimeOffset((t-utc));// Initialisation du fuseau
 
 // Mise en forme de la date et de l'heure
   String temp = "Date: ";
@@ -35,18 +35,7 @@ if (tmp > -12 && tmp < 13) t=now();
   temp += "/";
   temp += year();
   temp += " Heure: ";
-  temp+=hour(t);
-  temp+=":";
-   if (minute(t) < 10) {
-    temp += "0";
-    temp += minute(t);
-  } else temp += minute(t);
-  temp+=":";
-    if (second(t) < 10) {
-    temp += "0";
-    temp += second(t);
-  } else temp += second(t);
-  DateHeure = temp;
+  DateHeure = temp + timeClient.getFormattedTime();
   
   if (year()>2037) raz(); // Bug date
   setSyncProvider(getNtpTime);
