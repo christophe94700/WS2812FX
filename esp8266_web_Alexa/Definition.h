@@ -2,7 +2,7 @@
 #define min(a,b) ((a)<(b)?(a):(b))
 #define max(a,b) ((a)>(b)?(a):(b))
 
-#define WIFI_TIMEOUT 60000                  // Vérification du WIFI toute les xxxx ms.
+#define WIFI_TIMEOUT 10000                  // Vérification du WIFI toute les xxxx ms.
 #define WIFIAP_TIMEOUT 1800000              // Temps de connexion en mode AP
 #define WIFI_RESET 5                        // Reset du WIFI toute les xxxx minutes Valeur Max 255mn. Vauleur multiple de WIFI_TIMEOUT
 #define HTTP_PORT 80                        // Port de connexion pour le serveur HTTP

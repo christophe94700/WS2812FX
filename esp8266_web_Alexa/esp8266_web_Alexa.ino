@@ -1,6 +1,7 @@
-//#define ModeOTA                           // Utilisation du mode OTA si eeprom>1M
+#define ModeOTA                           // Utilisation du mode OTA si eeprom>1M
 
 #include <ESP8266WiFi.h>                    //Inclusion bibliothèque gestion du WIFI de l'ESP8266
+#include <WiFiClient.h>
 #include <ESP8266mDNS.h>                    // Inclusion bibliothèque mDNS
 #include <Espalexa.h>                       //Inclusion bibliothèque pour commande avec Alexa Amazon
 #include <ESP8266WebServer.h>               //Inclusion bibliothèque gestion du serveur web de l'ESP8266
@@ -67,6 +68,9 @@ void setup() {
   modes_setup();
   initLed();                                                      // Initialisation du bandeau LED
   wifi_setup();                                                   // Initialisation du wifi
+  int8_t tmp = EEPROM.read(ADRESS_GMT);                           // Lecture du fuseau horaire
+  if (tmp > -12 && tmp < 13) timeClient.setTimeOffset(3600 * tmp);// Initialisation du fuseau
+  if (tmp > 12) timeClient.setTimeOffset(0);                      // Si en automatique offset à zéro
   timeClient.begin();                                             // Démarrage du client NTP
   SPIFFS.begin();                                                 // Démarrage du SPI Flash Files System
   Date_Heure();                                                   // initialisation de la date et de l'heure
@@ -79,7 +83,7 @@ void setup() {
 #ifdef ModeOTA
     InitOTA();                                                    // Initialisation de l'OTA
 #endif
-  }
+  } else {init_server();}                                         // Initialisation des serveurs en mode AP
 }
 
 void loop() {
@@ -96,6 +100,7 @@ void loop() {
     ArduinoOTA.handle();
 #endif
   } else {
+    server.handleClient();                            // Serveurs en mode AP
     if (millis() - Twifiap > WIFIAP_TIMEOUT) {        // Temps en mode AP
       raz();
     }
